@@ -5,3 +5,8 @@ git commit -m "Your commit message here"
 git push
 
 git push origin main
+
+
+git remote add origin git@github.com:ateequrrehmann/BWT-Flutter.git
+
+git branch -M main
