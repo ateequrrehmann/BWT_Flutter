@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "18628523538",
+    "project_id": "classroomclone-fb1f7",
+    "storage_bucket": "classroomclone-fb1f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18628523538:android:eb5447a35b38a13c3c4acb",
+        "android_client_info": {
+          "package_name": "com.example.task_5_google_classroom_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTXvFZAkgQyingg3T16JHgqxaGVRjET2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
