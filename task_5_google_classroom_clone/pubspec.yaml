@@ -44,7 +44,8 @@ flutter_native_splash:
   color: "#42a5f5"
   image: "lib/assets/GoogleClassroom.png"
   android: true
-  iOS: true
+  ios: true
+  web: true
 
 
 dev_dependencies:
