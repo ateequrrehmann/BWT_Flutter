@@ -49,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               children: [
                 Image.asset(
-                  'assets/images/logo1.jpeg',
+                  'lib/assets/GoogleClassroom.png',
                   fit: BoxFit.fitWidth,
                   width: 240,
                   height: 240,
