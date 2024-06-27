@@ -49,10 +49,10 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               children: [
                 Image.asset(
-                  'lib/assets/GoogleClassroom.png',
+                  'lib/assets/GoogleClassroom.jpg',
                   fit: BoxFit.fitWidth,
-                  width: 240,
-                  height: 240,
+                  width: 180,
+                  height: 180,
                   // color: Colors.white,
                 ),
                 const SizedBox(
