@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:task_5_google_classroom_clone/screens/home_screen.dart';
 import 'package:task_5_google_classroom_clone/screens/signin_screen.dart';
-import 'package:task_5_google_classroom_clone/screens/voters.dart';
 
 
 class VerifyEmail extends StatefulWidget {
-  const VerifyEmail({super.key});
+  final String userId;
+  const VerifyEmail({super.key, required this.userId});
 
   @override
   State<VerifyEmail> createState() => _VerifyEmailState();
@@ -37,10 +38,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
     super.dispose();
   }
 
-  static void navigateToVerification(BuildContext context) {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const VerifyEmail()));
-  }
   Future checkEmailVerified() async{
     //call after email verification!
     await FirebaseAuth.instance.currentUser!.reload();
@@ -70,7 +67,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   }
   @override
   Widget build(BuildContext context) =>
-      isEmailVerified ? const Voters() : Scaffold(
+      isEmailVerified ? Home(userId: widget.userId) : Scaffold(
         appBar: AppBar(
           title: const Text('Verify Email'),
         ),

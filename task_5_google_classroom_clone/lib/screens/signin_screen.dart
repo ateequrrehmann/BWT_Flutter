@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:task_5_google_classroom_clone/screens/home_screen.dart';
 import 'package:task_5_google_classroom_clone/screens/reset_password.dart';
 import 'package:task_5_google_classroom_clone/screens/signup_screen.dart';
 import 'package:task_5_google_classroom_clone/screens/verify_email.dart';
-import 'package:task_5_google_classroom_clone/screens/voters.dart';
 
 import '../reusable_widgets/reusable_widgets.dart';
 import '../utils/color_utils.dart';
@@ -110,18 +110,17 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 5,
                 ),
                 forgetPassword(context),
-                firebaseButton(context, "Sign In", () {
+                firebaseButton(context, "Sign In", () async {
+                  String? userId;
                   // Check if email is verified before signing in
                   if (FirebaseAuth.instance.currentUser!.emailVerified) {
-                    FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                        email: _emailTextController.text,
-                        password: _passwordTextController.text)
-                        .then((value) {
-                      Navigator.pushReplacement(
-                          context, MaterialPageRoute(
-                          builder: (context) => const Voters()));
-                    }).onError((error, stackTrace) {
+                    try{
+                      UserCredential userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: _emailTextController.text,
+                          password: _passwordTextController.text);
+                      userId=userCredential.user!.uid;
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(userId: userCredential.user!.uid)));
+                    }catch(error){
                       showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -146,10 +145,10 @@ class _SignInScreenState extends State<SignInScreen> {
                           );
                         },
                       );
-                    });
+                    }
                   } else {
                     // Navigate to verification screen if email is not verified
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const VerifyEmail()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>VerifyEmail(userId: userId!)));
                   }
                 }),
                 Row(

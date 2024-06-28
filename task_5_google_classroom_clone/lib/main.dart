@@ -7,7 +7,7 @@ import 'firebase_options.dart';
 void main() async{
   WidgetsBinding widgetsBinding=WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Future.delayed(Duration(seconds: 5));
+  await Future.delayed(Duration(seconds: 2));
   FlutterNativeSplash.remove();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

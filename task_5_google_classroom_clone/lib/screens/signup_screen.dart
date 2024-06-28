@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:task_5_google_classroom_clone/screens/verify_email.dart';
@@ -17,6 +18,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _userNameTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _roleTextController = TextEditingController();
   bool _isPasswordVisible = false;
 
   @override
@@ -36,10 +38,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-          hexStringToColor("CB2B93"),
-          hexStringToColor("9546C4"),
-          hexStringToColor("5E61F4")
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+              hexStringToColor("CB2B93"),
+              hexStringToColor("9546C4"),
+              hexStringToColor("5E61F4")
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
               20, MediaQuery.of(context).size.height * 0.2, 20, 0),
@@ -56,6 +58,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               reusableTextField("Enter Email Id", Icons.person_outline, false,
                   _emailTextController),
+              const SizedBox(
+                height: 20,
+              ),
+              reusableTextField("Enter your role e.g. teacher or student", Icons.lock_person, false,
+                  _roleTextController),
               const SizedBox(
                 height: 20,
               ),
@@ -111,12 +118,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
                     'username': _userNameTextController.text,
                     'email': _emailTextController.text,
-                    // Add more fields as needed
+                    'role': _roleTextController.text,
                   }).then((_) {
                     print("User added to Firestore");
+
                     // Navigate to the verification email screen
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => const VerifyEmail()));
+                        context, MaterialPageRoute(builder: (context) => VerifyEmail(userId: value.user!.uid)));
                   }).catchError((error) {
                     print("Failed to add user: $error");
                   });
