@@ -20,11 +20,13 @@ class _HomeState extends State<Home> {
   final TextEditingController _SubjectController=TextEditingController();
   final TextEditingController _RoomController=TextEditingController();
   late String classCode;
+  List<DocumentSnapshot> classes = [];
 
   @override
   void initState() {
     super.initState();
     fetchUserRole(widget.userId);
+    fetchClasses(widget.userId);
   }
 
   Future<void> fetchUserRole(String? id) async{
@@ -32,6 +34,17 @@ class _HomeState extends State<Home> {
     Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
     role=userData['role'];
     print(role);
+  }
+
+  Future<void> fetchClasses(String userId) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('classes')
+        .get();
+    setState(() {
+      classes = querySnapshot.docs;
+    });
   }
 
   @override
@@ -65,10 +78,53 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      body: Container(
 
+      body: classes.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+        itemCount: classes.length,
+        itemBuilder: (context, index) {
+          var classData = classes[index].data() as Map<String, dynamic>;
+          return Card(
+            margin: EdgeInsets.all(10.0),
+            child: ListTile(
+              title: Text(
+                classData['class_name'],
+                style: TextStyle(fontSize: 30),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(height: 5),
+                  Text('${classData['Section'] ?? ''}'),
+                  SizedBox(height: 65),
+                  Text('${classData['Subject'] ?? ''}'),
+                  // Text('Room: ${classData['Room'] ?? ''}'),
+                  // Text('Class Code: ${classData['classCode'] ?? ''}'),
+                ],
+              ),
+              trailing: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.edit),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(CupertinoIcons.delete_solid),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
-      floatingActionButton: FloatingActionButton(
+
+
+        floatingActionButton: FloatingActionButton(
         onPressed: () {
           if(role=="Student"){
             print(role);
@@ -336,6 +392,7 @@ class _HomeState extends State<Home> {
                                       // Add more fields as needed
                                     }).then((_) {
                                       print("class added for teacher");
+                                      fetchClasses(widget.userId);
                                     }).catchError((error) {
                                       print("Failed to add class: $error");
                                     });
