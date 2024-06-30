@@ -68,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               TextField(
                 controller: _passwordTextController,
-                obscureText: !_isPasswordVisible,  // Update based on visibility
+                obscureText: !_isPasswordVisible,
                 enableSuggestions: false,
                 autocorrect: false,
                 cursorColor: Colors.white,
@@ -109,52 +109,109 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 20,
               ),
               firebaseButton(context, "Sign Up", () {
-                FirebaseAuth.instance
-                    .createUserWithEmailAndPassword(
-                    email: _emailTextController.text,
-                    password: _passwordTextController.text)
-                    .then((value) {
-                  // Create a new document in Firestore for the user
-                  FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
-                    'username': _userNameTextController.text,
-                    'email': _emailTextController.text,
-                    'role': _roleTextController.text,
-                  }).then((_) {
-                    print("User added to Firestore");
+                if(_roleTextController.text.toLowerCase()=="teacher"){
+                  List<dynamic> students=[];
+                  FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text)
+                      .then((value) {
+                    // Create a new document in Firestore for the user
+                    FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
+                      'username': _userNameTextController.text,
+                      'email': _emailTextController.text,
+                      'role': _roleTextController.text,
+                      'students': students
+                    }).then((_) {
+                      print("User added to Firestore");
 
-                    // Navigate to the verification email screen
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => VerifyEmail(userId: value.user!.uid)));
-                  }).catchError((error) {
-                    print("Failed to add user: $error");
+                      // Navigate to the verification email screen
+                      Navigator.pushReplacement(
+                          context, MaterialPageRoute(builder: (context) => VerifyEmail(userId: value.user!.uid)));
+                    }).catchError((error) {
+                      print("Failed to add user: $error");
+                    });
+                  }).onError((error, stackTrace) {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Wrong Credentials'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text("Error ${error.toString()}"),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: const Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    print("Error ${error.toString()}");
                   });
-                }).onError((error, stackTrace) {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Wrong Credentials'),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: <Widget>[
-                              Text("Error ${error.toString()}"),
-                            ],
+                }
+                if(_roleTextController.text.toLowerCase()=="student"){
+                  List<dynamic> classes=[];
+                  List<dynamic> teachers=[];
+                  FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text)
+                      .then((value) {
+                    // Create a new document in Firestore for the user
+                    FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
+                      'username': _userNameTextController.text,
+                      'email': _emailTextController.text,
+                      'role': _roleTextController.text,
+                      'classes': classes,
+                      'teachers': teachers
+                    }).then((_) {
+                      print("User added to Firestore");
+
+                      // Navigate to the verification email screen
+                      Navigator.pushReplacement(
+                          context, MaterialPageRoute(builder: (context) => VerifyEmail(userId: value.user!.uid)));
+                    }).catchError((error) {
+                      print("Failed to add user: $error");
+                    });
+                  }).onError((error, stackTrace) {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Wrong Credentials'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                Text("Error ${error.toString()}"),
+                              ],
+                            ),
                           ),
-                        ),
-                        actions: [
-                          TextButton(
-                            child: const Text('OK'),
-                            onPressed: () {
-                              Navigator.of(context).pop(); // Close the dialog
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                  print("Error ${error.toString()}");
-                });
+                          actions: [
+                            TextButton(
+                              child: const Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    print("Error ${error.toString()}");
+                  });
+                }
+
               })
             ],
           ),

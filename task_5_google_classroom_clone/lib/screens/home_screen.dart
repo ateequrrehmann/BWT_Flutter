@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:task_5_google_classroom_clone/screens/classInfo.dart';
 
 class Home extends StatefulWidget {
   final String userId;
@@ -14,13 +15,22 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String role="unknown";
+  String name="unknown";
   final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   final TextEditingController _ClassNameController=TextEditingController();
   final TextEditingController _SectionController=TextEditingController();
   final TextEditingController _SubjectController=TextEditingController();
   final TextEditingController _RoomController=TextEditingController();
+  final TextEditingController _nameController=TextEditingController();
+  final TextEditingController _classCodeController=TextEditingController();
   late String classCode;
   List<DocumentSnapshot> classes = [];
+  List<Map<String, dynamic>> studentClasses = [];
+  var classDataForStudent;
+  late var studentData;
+
+
 
   @override
   void initState() {
@@ -33,6 +43,7 @@ class _HomeState extends State<Home> {
     DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('users').doc(id).get();
     Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
     role=userData['role'];
+    name=userData['username'];
     print(role);
   }
 
@@ -45,6 +56,14 @@ class _HomeState extends State<Home> {
     setState(() {
       classes = querySnapshot.docs;
     });
+  }
+
+  // Future<void> joinClassesForStudent()async{
+  //
+  // }
+
+
+  Future<void> fetchClassesForStudent() async{
   }
 
   @override
@@ -79,55 +98,131 @@ class _HomeState extends State<Home> {
       ),
 
 
-      body: classes.isEmpty
-          ? Center(child: CircularProgressIndicator())
+      body: role=="Teacher"
+        ? classes.isEmpty
+          ? Center(child: Text('no data found'))
           : ListView.builder(
         itemCount: classes.length,
         itemBuilder: (context, index) {
           var classData = classes[index].data() as Map<String, dynamic>;
-          return Card(
-            margin: EdgeInsets.all(10.0),
-            child: ListTile(
-              title: Text(
-                classData['class_name'],
-                style: TextStyle(fontSize: 30),
+          var docId=classes[index].id;
+          return GestureDetector(
+            onTap: (){
+              print('hello');
+              print(classData['classCode']);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ClassInfo(userId: widget.userId, role: role, classCode: classData['classCode'])));
+
+            },
+            child: Card(
+              margin: EdgeInsets.all(10.0),
+              child: ListTile(
+                title: Text(
+                  classData['class_name'],
+                  style: TextStyle(fontSize: 30),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(height: 5),
+                    Text('${classData['Section'] ?? ''}'),
+                    SizedBox(height: 65),
+                    Text('${classData['Subject'] ?? ''}'),
+                    // Text('Room: ${classData['Room'] ?? ''}'),
+                    // Text('Class Code: ${classData['classCode'] ?? ''}'),
+                  ],
+                ),
+
+                trailing: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        TeacherClassCreation(docId);
+                      },
+                      icon: Icon(Icons.edit),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        FirebaseFirestore.instance.collection('users').doc(widget.userId).collection('classes').doc(docId).delete();
+                        _messageForm("Class Delete Successfully");
+                        fetchClasses(widget.userId);
+                      },
+                      icon: Icon(CupertinoIcons.delete_solid),
+                    ),
+                  ],
+                ),
               ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(height: 5),
-                  Text('${classData['Section'] ?? ''}'),
-                  SizedBox(height: 65),
-                  Text('${classData['Subject'] ?? ''}'),
-                  // Text('Room: ${classData['Room'] ?? ''}'),
-                  // Text('Class Code: ${classData['classCode'] ?? ''}'),
-                ],
-              ),
-              trailing: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.edit),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(CupertinoIcons.delete_solid),
-                  ),
-                ],
+            ),
+          );
+        },
+      )
+      : classes.isEmpty
+          ? Center(child: Text('no data found'))
+          : ListView.builder(
+        itemCount: classes.length,
+        itemBuilder: (context, index) {
+          var classData = classes[index].data() as Map<String, dynamic>;
+          //var docId=[index].id;
+          return GestureDetector(
+            onTap: (){
+              print('hello');
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ClassInfo(userId: widget.userId, role: role, classCode: classData['classCode'])));
+            },
+            child: Card(
+              margin: EdgeInsets.all(10.0),
+              child: ListTile(
+                title: Text(
+                  classData['class_name'],
+                  style: TextStyle(fontSize: 30),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(height: 5),
+                    Text('${classData['Section'] ?? ''}'),
+                    SizedBox(height: 65),
+                    Text('${classData['Subject'] ?? ''}'),
+                    // Text('Room: ${classData['Room'] ?? ''}'),
+                    // Text('Class Code: ${classData['classCode'] ?? ''}'),
+                  ],
+                ),
+
+                // trailing: Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   mainAxisSize: MainAxisSize.min,
+                //   children: [
+                //     IconButton(
+                //       onPressed: () {
+                //         TeacherClassCreation(docId);
+                //       },
+                //       icon: Icon(Icons.edit),
+                //     ),
+                //     IconButton(
+                //       onPressed: () {
+                //         FirebaseFirestore.instance.collection('users').doc(widget.userId).collection('classes').doc(docId).delete();
+                //         _messageForm("Class Delete Successfully");
+                //         fetchClasses(widget.userId);
+                //       },
+                //       icon: Icon(CupertinoIcons.delete_solid),
+                //     ),
+                //   ],
+                // ),
               ),
             ),
           );
         },
       ),
 
-
         floatingActionButton: FloatingActionButton(
         onPressed: () {
           if(role=="Student"){
-            print(role);
+            //print(role);
+            print('adsfasdf');
+            StudentClassJoin();
+            //fetchClassesForStudent();
           }
           else{
             print(role);
@@ -236,14 +331,29 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  Future<void> UpdateInfo(String? id) async{
+    FirebaseFirestore.instance.collection('users').doc(widget.userId).collection('classes').doc(id).update({
+      'class_name': _ClassNameController.text,
+      'Section': _SectionController.text??'',
+      'Subject': _SubjectController.text??'',
+      'Room': _RoomController.text??'',
+      'classCode': classCode,
+    });
+    fetchClasses(widget.userId);
+  }
+
+
   void TeacherClassCreation(String? id) async{
     if (id != null) {
-      // final existingTasks = _tasks.firstWhere((element) => element['id'] == id);
-      // _titleController.text = existingTasks['title'];
-      // _descriptionController.text = existingTasks['description'];
-      // _priorityController = existingTasks['priority'];
-      // _completionDateController.text = existingTasks['completionDate'];
-      // _timeController.text = existingTasks['time'];
+      DocumentSnapshot doc= await FirebaseFirestore.instance.collection('users').doc(widget.userId).collection('classes').doc(id).get();
+      var classData=doc.data() as Map<String, dynamic>;
+      _ClassNameController.text=classData['class_name'];
+      _SectionController.text=classData['Section'];
+      _SubjectController.text=classData['Subject'];
+      _RoomController.text=classData['Room'];
+      classCode=classData['classCode'];
+      print('class code $classCode');
     }
     showModalBottomSheet<dynamic>(
       // backgroundColor: Color(0xFF363636),
@@ -287,7 +397,7 @@ class _HomeState extends State<Home> {
                         controller: _ClassNameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Title can\'t be empty';
+                            return 'Class Name can\'t be empty';
                           }
                           return null;
                         },
@@ -378,20 +488,41 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         TextButton(
-                            onPressed: (){
+                            onPressed: () async{
                               if (_formKey.currentState!.validate()) {
+                                List<dynamic> code=[];
                                 if(id==null){
+                                  print(id);
                                   classCode=generateCode();
+                                  code.add(widget.userId);
                                   print(classCode);
-                                    FirebaseFirestore.instance.collection('users').doc(widget.userId).collection('classes').doc().set({
+                                    FirebaseFirestore.instance.collection('users').doc(widget.userId).collection('classes').doc(classCode).set({
                                       'class_name': _ClassNameController.text,
                                       'Section': _SectionController.text??'',
                                       'Subject': _SubjectController.text??'',
                                       'Room': _RoomController.text??'',
                                       'classCode': classCode,
                                       // Add more fields as needed
-                                    }).then((_) {
+                                    }).then((_) async {
                                       print("class added for teacher");
+                                      final docRef = FirebaseFirestore.instance.collection('users').doc('StudentClass');
+                                      try {
+                                        final docSnapshot = await docRef.get();
+
+                                        if (docSnapshot.exists) {
+                                          // If the document exists, we merge the new class ID into the existing map
+                                          await docRef.set({
+                                            name : widget.userId,
+                                          }, SetOptions(merge: true));
+                                        } else {
+                                          // If the document doesn't exist, we create it with the new class ID
+                                          await docRef.set({
+                                            name : widget.userId,
+                                          });
+                                        }
+                                      } catch (e) {
+                                        print('Error adding class ID: $e');
+                                      }
                                       fetchClasses(widget.userId);
                                     }).catchError((error) {
                                       print("Failed to add class: $error");
@@ -406,7 +537,8 @@ class _HomeState extends State<Home> {
                                   _RoomController.text='';
                                 }
                                 if(id!=null){
-                                  //await _updateTask(id);
+                                  print(id);
+                                  await UpdateInfo(id);
                                   Navigator.pop(context);
                                   _messageForm("Class Updated Successfully");
                                   _ClassNameController.text='';
@@ -431,6 +563,205 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  Future<void> StudentClassJoin() async {
+    DocumentSnapshot doc = await FirebaseFirestore.instance.collection('users').doc(widget.userId).get();
+    studentData = doc.data() as Map<String, dynamic>;
+    print(doc);
+    showModalBottomSheet<dynamic>(
+      context: context,
+      elevation: 5,
+      isScrollControlled: true,
+      builder: (_) => FractionallySizedBox(
+        heightFactor: 0.7,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 15,
+            left: 15,
+            right: 15,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Class Join',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Form(
+                key: _formKey2,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      child: TextFormField(
+                        controller: _nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Name can\'t be empty';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          labelStyle: TextStyle(fontSize: 18),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF979797),
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF979797),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF979797),
+                            ),
+                          ),
+                          enabledBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      child: TextFormField(
+                        controller: _classCodeController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Code can\'t be empty';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Code',
+                          labelStyle: TextStyle(fontSize: 18),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF979797),
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF979797),
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF979797),
+                            ),
+                          ),
+                          enabledBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextButton(
+                          onPressed: () async {
+                            if (_formKey2.currentState!.validate()) {
+                              print('heelloadsf');
+                              List<dynamic> student = [];
+                              student.add(studentData['username']);
+                              String classCode = _classCodeController.text;
+
+                              // Get the document snapshot from Firestore
+                              DocumentSnapshot doc = await FirebaseFirestore.instance.collection('users').doc('StudentClass').get();
+
+                              // Check if the document exists
+                              if (doc.exists) {
+                                // Convert the document data to a map
+                                Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
+
+                                // Print the user data
+                                print(userData);
+
+                                // Access the specific field 'Ateeq' in the nested map
+                                var docId = userData[_nameController.text];
+                                if(docId == null){
+                                  _messageForm("Class doesn't exist");
+                                } else {
+                                  print(docId);
+
+                                  DocumentSnapshot classDoc = await FirebaseFirestore.instance.collection('users').doc(docId).collection('classes').doc(classCode).get();
+                                  print(classDoc);
+                                  if(classDoc.exists){
+                                    Map<String, dynamic> classData = classDoc.data() as Map<String, dynamic>;
+                                    print(classData);
+                                    print('asdf');
+
+                                    // Add student to the class's student list
+                                    FirebaseFirestore.instance.collection('users').doc(docId).update({
+                                      'students': ([studentData['username']])
+                                    });
+
+                                    FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+                                      'teachers': ([_nameController.text])
+                                    });
+
+                                    // Add class code to the student's list of classes
+                                    FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+                                      'classes': FieldValue.arrayUnion([classCode])
+                                    });
+
+                                    FirebaseFirestore.instance.collection('users').doc(widget.userId).collection('classes').doc(classCode).set({
+                                      'class_name': classData['class_name'],
+                                      'Section': classData['Section']??'',
+                                      'Subject': classData['Subject']??'',
+                                      'Room': classData['Room']??'',
+                                      'classCode': classData['classCode'],
+                                      // Add more fields as needed
+                                    });
+
+                                    fetchClasses(widget.userId);
+
+                                    _messageForm("Added Successfully");
+                                    Navigator.pop(context);
+                                    _nameController.text='';
+                                    _classCodeController.text='';
+                                  } else {
+                                    _messageForm("Class doesn't exist");
+                                  }
+                                }
+                              } else {
+                                print("Document does not exist");
+                              }
+                            }
+                          },
+                          child: Text('Save'),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
   String generateCode() {
     int length=7;
     const String _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
