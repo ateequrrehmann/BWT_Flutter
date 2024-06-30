@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:task_5_google_classroom_clone/screens/signin_screen.dart';
 
 import '../reusable_widgets/reusable_widgets.dart';
-import '../utils/color_utils.dart';
 
 
 class ResetPassword extends StatefulWidget {
@@ -31,12 +30,12 @@ class _ResetPasswordState extends State<ResetPassword> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          hexStringToColor("CB2B93"),
-          hexStringToColor("9546C4"),
-          hexStringToColor("5E61F4")
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        // decoration: BoxDecoration(
+        //     gradient: LinearGradient(colors: [
+        //   hexStringToColor("CB2B93"),
+        //   hexStringToColor("9546C4"),
+        //   hexStringToColor("5E61F4")
+        // ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
               20, MediaQuery.of(context).size.height * 0.2, 20, 0),

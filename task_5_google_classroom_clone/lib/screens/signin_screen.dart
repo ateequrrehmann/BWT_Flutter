@@ -6,7 +6,6 @@ import 'package:task_5_google_classroom_clone/screens/signup_screen.dart';
 import 'package:task_5_google_classroom_clone/screens/verify_email.dart';
 
 import '../reusable_widgets/reusable_widgets.dart';
-import '../utils/color_utils.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -33,12 +32,12 @@ class _SignInScreenState extends State<SignInScreen> {
             .of(context)
             .size
             .height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              hexStringToColor("CB2B93"),
-              hexStringToColor("9546C4"),
-              hexStringToColor("5E61F4")
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        // decoration: BoxDecoration(
+        //     gradient: LinearGradient(colors: [
+        //       hexStringToColor("CB2B93"),
+        //       hexStringToColor("9546C4"),
+        //       hexStringToColor("5E61F4")
+        //     ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -69,14 +68,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   // Update based on visibility
                   enableSuggestions: false,
                   autocorrect: false,
-                  cursorColor: Colors.white,
+                  cursorColor: Colors.black,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.black.withOpacity(0.9),
                   ),
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.lock_outline,
-                      color: Colors.white70,
+                      color: Colors.black,
                     ),
                     suffixIcon: GestureDetector(
                       onTap: () {
@@ -88,16 +87,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: Icon(
                         _isPasswordVisible ? Icons.visibility : Icons
                             .visibility_off, // Change icon based on visibility
-                        color: Colors.white70,
+                        color: Colors.black,
                       ),
                     ),
                     labelText: "Enter Password",
                     labelStyle: TextStyle(
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.black.withOpacity(0.9),
                     ),
                     filled: true,
                     floatingLabelBehavior: FloatingLabelBehavior.never,
-                    fillColor: Colors.white.withOpacity(0.3),
+                    fillColor: Colors.black.withOpacity(0.3),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         borderSide: const BorderSide(
@@ -156,7 +155,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   children: [
                     const Text(
                       "Don't have account?",
-                      style: TextStyle(color: Colors.white70),
+                      style: TextStyle(color: Colors.black),
                     ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
@@ -170,7 +169,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         child: const Text(
                           " Sign Up",
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -198,7 +197,7 @@ class _SignInScreenState extends State<SignInScreen> {
       child: TextButton(
         child: const Text(
           "Forget Password?",
-          style: TextStyle(color: Colors.white70),
+          style: TextStyle(color: Colors.black),
           textAlign: TextAlign.right,
         ),
         onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>const ResetPassword())),

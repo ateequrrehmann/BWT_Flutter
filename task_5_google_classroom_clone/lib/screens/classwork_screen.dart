@@ -62,6 +62,11 @@ class _ClassworkScreenState extends State<ClassworkScreen> {
     setState(() {
       uploadTask=null;
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('File uploaded successfully!'),
+      ),
+    );
   }
 
   Future<void> fetchTask() async {
@@ -147,7 +152,8 @@ class _ClassworkScreenState extends State<ClassworkScreen> {
               );
             },
           ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: widget.role.toLowerCase()=="teacher"
+      ?FloatingActionButton(
         onPressed: () {
           taskForm(null); // Add new task
         },
@@ -156,7 +162,7 @@ class _ClassworkScreenState extends State<ClassworkScreen> {
         backgroundColor: Color(0xFF8687E7),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         tooltip: 'Add task',
-      ),
+      ):null,
     );
   }
 

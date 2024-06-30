@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:task_5_google_classroom_clone/screens/verify_email.dart';
 
 import '../reusable_widgets/reusable_widgets.dart';
-import '../utils/color_utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -18,7 +17,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _userNameTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
-  final TextEditingController _roleTextController = TextEditingController();
+  String? _selectedRole;
   bool _isPasswordVisible = false;
 
   @override
@@ -36,12 +35,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              hexStringToColor("CB2B93"),
-              hexStringToColor("9546C4"),
-              hexStringToColor("5E61F4")
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
               20, MediaQuery.of(context).size.height * 0.2, 20, 0),
@@ -61,8 +54,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 20,
               ),
-              reusableTextField("Enter your role e.g. teacher or student", Icons.lock_person, false,
-                  _roleTextController),
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  // labelText: "Select Role",
+                  prefixIcon: const Icon(Icons.lock_person, color: Colors.black),
+                  filled: true,
+                  fillColor: Colors.black.withOpacity(0.3),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                value: _selectedRole,
+                items: [
+                  DropdownMenuItem(
+                    value: 'teacher',
+                    child: Text('Teacher'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'student',
+                    child: Text('Student'),
+                  ),
+                ],
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedRole = newValue;
+                  });
+                },
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -71,14 +90,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 obscureText: !_isPasswordVisible,
                 enableSuggestions: false,
                 autocorrect: false,
-                cursorColor: Colors.white,
+                cursorColor: Colors.black,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.black.withOpacity(0.9),
                 ),
                 decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.lock_outline,
-                    color: Colors.white70,
+                    color: Colors.black,
                   ),
                   suffixIcon: GestureDetector(
                     onTap: () {
@@ -88,16 +107,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     child: Icon(
                       _isPasswordVisible ? Icons.visibility : Icons.visibility_off,  // Change icon based on visibility
-                      color: Colors.white70,
+                      color: Colors.black,
                     ),
                   ),
                   labelText: "Enter Password",
                   labelStyle: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.black.withOpacity(0.9),
                   ),
                   filled: true,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
-                  fillColor: Colors.white.withOpacity(0.3),
+                  fillColor: Colors.black.withOpacity(0.3),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                       borderSide: const BorderSide(width: 0, style: BorderStyle.none)
@@ -109,25 +128,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 20,
               ),
               firebaseButton(context, "Sign Up", () {
-                if(_roleTextController.text.toLowerCase()=="teacher"){
-                  List<dynamic> students=[];
+                if (_selectedRole == "teacher") {
+                  List<dynamic> students = [];
                   FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
                       email: _emailTextController.text,
                       password: _passwordTextController.text)
                       .then((value) {
                     // Create a new document in Firestore for the user
-                    FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
+                    FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(value.user!.uid)
+                        .set({
                       'username': _userNameTextController.text,
                       'email': _emailTextController.text,
-                      'role': _roleTextController.text,
+                      'role': _selectedRole,
                       'students': students
                     }).then((_) {
                       print("User added to Firestore");
 
                       // Navigate to the verification email screen
                       Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => VerifyEmail(userId: value.user!.uid)));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  VerifyEmail(userId: value.user!.uid)));
                     }).catchError((error) {
                       print("Failed to add user: $error");
                     });
@@ -159,19 +184,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     print("Error ${error.toString()}");
                   });
                 }
-                if(_roleTextController.text.toLowerCase()=="student"){
-                  List<dynamic> classes=[];
-                  List<dynamic> teachers=[];
+                if (_selectedRole == "student") {
+                  List<dynamic> classes = [];
+                  List<dynamic> teachers = [];
                   FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
                       email: _emailTextController.text,
                       password: _passwordTextController.text)
                       .then((value) {
                     // Create a new document in Firestore for the user
-                    FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
+                    FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(value.user!.uid)
+                        .set({
                       'username': _userNameTextController.text,
                       'email': _emailTextController.text,
-                      'role': _roleTextController.text,
+                      'role': _selectedRole,
                       'classes': classes,
                       'teachers': teachers
                     }).then((_) {
@@ -179,7 +207,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       // Navigate to the verification email screen
                       Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => VerifyEmail(userId: value.user!.uid)));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  VerifyEmail(userId: value.user!.uid)));
                     }).catchError((error) {
                       print("Failed to add user: $error");
                     });
@@ -211,7 +242,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     print("Error ${error.toString()}");
                   });
                 }
-
               })
             ],
           ),

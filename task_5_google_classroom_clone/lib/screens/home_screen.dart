@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
       ),
 
 
-      body: role=="Teacher"
+      body: role.toLowerCase()=="teacher"
         ? classes.isEmpty
           ? Center(child: Text('no data found'))
           : ListView.builder(
@@ -218,7 +218,7 @@ class _HomeState extends State<Home> {
 
         floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if(role=="Student"){
+          if(role.toLowerCase()=="student"){
             //print(role);
             print('adsfasdf');
             StudentClassJoin();
@@ -565,6 +565,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> StudentClassJoin() async {
+    print('hee');
     DocumentSnapshot doc = await FirebaseFirestore.instance.collection('users').doc(widget.userId).get();
     studentData = doc.data() as Map<String, dynamic>;
     print(doc);
