@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 
 
@@ -87,27 +88,27 @@ class _CleaningServiceState extends State<CleaningService> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 4.w, vertical:1.5.h),
         child: ListView(
           children: [
-            const SizedBox(
-              height: 5.0,
+             SizedBox(
+              height: 1.h,
             ),
             Column(
 
               children: [
-                const SizedBox(
-                  height: 7.0,
+                SizedBox(
+                  height: 1.h,
                 ),
                 Column(
                   children: [
-                    const Row(
+                    Row(
                       children: [
                         Text(
                           "All Services",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
+                            fontSize: 20.sp,
                           ),
                         ),
                       ],
@@ -118,10 +119,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/sofa.png"),
                               ),
@@ -132,10 +133,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/tank.png"),
                               ),
@@ -146,10 +147,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/mattress.png"),
                               ),
@@ -159,23 +160,23 @@ class _CleaningServiceState extends State<CleaningService> {
                         ),
                       ],
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(23.0, 5.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(4.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Sofa Cleaning",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(30.0, 5.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(4.5.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Plastic Water",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(48.0, 5.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(12.w, 0.0, 0.0, 0.0),
 
                           child: Text(
                             "Mattress",
@@ -183,18 +184,18 @@ class _CleaningServiceState extends State<CleaningService> {
                         ),
                       ],
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(140.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(33.w, 0.0, 0.0, 0.0),
 
                           child: Text(
                             "Tank Cleaning",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(45.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(12.w, 0.0, 0.0, 0.0),
 
                           child: Text(
                             "Cleaning",
@@ -202,8 +203,8 @@ class _CleaningServiceState extends State<CleaningService> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 7.0,
+                    SizedBox(
+                      height: 1.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -211,10 +212,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/house.png"),
                               ),
@@ -225,10 +226,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/curtain.png"),
                               ),
@@ -239,10 +240,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/chair.png"),
                               ),
@@ -252,47 +253,47 @@ class _CleaningServiceState extends State<CleaningService> {
                         ),
                       ],
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(28.0, 5.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(5.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "House Deep",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(58.0, 5.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(13.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Curtain",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(48.0, 5.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(10.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Chair Cleaning",
                           ),
                         ),
                       ],
                     ),
-                    const Row(
+                    Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(7.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Cleaning",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(65.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(16.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Cleaning",
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 7.0,
+                     SizedBox(
+                      height: 1.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -300,10 +301,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/cementwater.png"),
                               ),
@@ -314,10 +315,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/carpet.png"),
                               ),
@@ -328,10 +329,10 @@ class _CleaningServiceState extends State<CleaningService> {
                         Card(
                           color: Colors.white70,
                           child: Container(
-                            width: 100.0,
-                            height: 100.0,
+                            width: 27.w,
+                            height: 27.w,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.sp),
                               image: const DecorationImage(
                                 image: AssetImage("lib/assets/commercialdeep.png"),
                               ),
@@ -341,39 +342,39 @@ class _CleaningServiceState extends State<CleaningService> {
                         ),
                       ],
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(20.0, 5.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(3.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Cement Water",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(25.0, 5.0, 0.0, 5.0),
+                          padding: EdgeInsets.fromLTRB(3.5.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Carpet Cleaning",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(28.0, 5.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(4.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Commercial",
                           ),
                         ),
                       ],
                     ),
-                    const Row(
+                    Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(22.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(3.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Tank Cleaning",
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(145.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsets.fromLTRB(35.w, 0.0, 0.0, 0.0),
                           child: Text(
                             "Deep Cleaning",
                           ),
@@ -382,8 +383,8 @@ class _CleaningServiceState extends State<CleaningService> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 10.0,
+                 SizedBox(
+                  height: 1.5.h,
                 ),
                 const Row(
                   children: [
@@ -401,36 +402,70 @@ class _CleaningServiceState extends State<CleaningService> {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Card(
-                      child: Container(
-                        width: 300.0,
-                        height: 110.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          image: const DecorationImage(
-                            image: AssetImage("lib/assets/acrepair.png"),
-                            fit: BoxFit.cover,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Card(
+                        child: Container(
+                          width: 80.w,
+                          height: 18.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            image: const DecorationImage(
+                              image: AssetImage("lib/assets/acrepair.png"),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Card(
-                      child: Container(
-                        width: 55.0,
-                        height: 110.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          image: const DecorationImage(
-                            image: AssetImage("lib/assets/carservice.png"),
-                            fit: BoxFit.cover,
+                      Card(
+                        child: Container(
+                          width: 80.w,
+                          height: 18.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            image: const DecorationImage(
+                              image: AssetImage("lib/assets/carservice.png"),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+
+                // Row(
+                //   children: [
+                //     Card(
+                //       child: Container(
+                //         width: 300.0,
+                //         height: 110.0,
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(10.0),
+                //           image: const DecorationImage(
+                //             image: AssetImage("lib/assets/acrepair.png"),
+                //             fit: BoxFit.cover,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     Card(
+                //       child: Container(
+                //         width: 55.0,
+                //         height: 110.0,
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(10.0),
+                //           image: const DecorationImage(
+                //             image: AssetImage("lib/assets/carservice.png"),
+                //             fit: BoxFit.cover,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
 

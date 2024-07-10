@@ -9,7 +9,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomeService(),
+        '/': (context) => const Home(),
         '/HomeServices': (context) => const HomeService(),
         '/CleaningServices': (context) => const CleaningService(),
       },
