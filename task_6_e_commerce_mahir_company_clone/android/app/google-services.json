@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "170586897011",
+    "project_id": "mahircompanyclone",
+    "storage_bucket": "mahircompanyclone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170586897011:android:bfd91c334511a3aa2c4806",
+        "android_client_info": {
+          "package_name": "com.example.task_6_e_commerce_mahir_company_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlZndmPzmfLuMf4QXdoa6mm8z-rBmpygA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
