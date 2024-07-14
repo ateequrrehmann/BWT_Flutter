@@ -1,23 +1,31 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myapp/views/screens/CleaningServices.dart';
+import 'package:myapp/views/screens/HomeServices.dart';
+import 'package:myapp/views/screens/registerationLogin/register_screen.dart';
+import 'package:myapp/views/screens/splash_screen/splash_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '/HomeServices.dart';
-import 'CleaningServices.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(ResponsiveSizer(builder: (context, orientation, screenType) {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(ProviderScope(
+      child: ResponsiveSizer(builder: (context, orientation, screenType) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => const SplashScreen(),
         '/HomeServices': (context) => const HomeService(),
         '/CleaningServices': (context) => const CleaningService(),
       },
     );
-  }));
+  })));
 }
-
-
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -33,7 +41,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(
+        title: Text(
           "Mahir Company",
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -94,12 +102,12 @@ class _HomeState extends State<Home> {
                     width: 43.w,
                     child: ElevatedButton.icon(
                       onPressed: () {},
-                      icon:  Icon(
+                      icon: Icon(
                         Icons.attach_money_rounded,
                         size: 20.sp,
                         color: Colors.white,
                       ),
-                      label:  Text(
+                      label: Text(
                         "0 Coins",
                         style: TextStyle(
                           color: Colors.white,
@@ -116,19 +124,19 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: 3.w,
                   ),
                   SizedBox(
                     width: 43.w,
                     child: ElevatedButton.icon(
                       onPressed: () {},
-                      icon:  Icon(
+                      icon: Icon(
                         Icons.account_balance_wallet_rounded,
                         size: 20.sp,
                         color: Colors.white,
                       ),
-                      label:  Text(
+                      label: Text(
                         "100 Wallet",
                         style: TextStyle(
                           color: Colors.white,
@@ -147,7 +155,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-               SizedBox(
+              SizedBox(
                 height: 2.h,
               ),
               Row(
@@ -163,7 +171,7 @@ class _HomeState extends State<Home> {
                       child: Column(
                         //crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           Padding(
+                          Padding(
                             padding: EdgeInsets.only(top: 2.h),
                             child: Text(
                               "Home Services",
@@ -174,8 +182,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsets.fromLTRB(1.5.w, 1.h, 0.0, 0.0),
+                            padding: EdgeInsets.fromLTRB(1.5.w, 1.h, 0.0, 0.0),
                             child: Row(
                               children: [
                                 SizedBox(
@@ -188,7 +195,7 @@ class _HomeState extends State<Home> {
                                           borderRadius:
                                               BorderRadius.circular(10.sp),
                                         )),
-                                    child:  Text(
+                                    child: Text(
                                       "RESIDENTIAL",
                                       style: TextStyle(
                                         fontSize: 13.sp,
@@ -197,12 +204,12 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                 ),
-                                 SizedBox(
+                                SizedBox(
                                   width: 1.w,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(
-                                      0.0, 0.0, 2.w, 0.0),
+                                  padding:
+                                      EdgeInsets.fromLTRB(0.0, 0.0, 2.w, 0.0),
                                   child: SizedBox(
                                     height: 4.h,
                                     child: TextButton(
@@ -213,7 +220,7 @@ class _HomeState extends State<Home> {
                                             borderRadius:
                                                 BorderRadius.circular(10.sp),
                                           )),
-                                      child:  Text(
+                                      child: Text(
                                         "COMMERCIAL",
                                         style: TextStyle(
                                           fontSize: 13.sp,
@@ -226,15 +233,15 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                           ),
-                           Center(
+                          Center(
                             child: Image(
                               image: AssetImage("lib/assets/toolbox.png"),
                               width: 20.w,
                               height: 20.h,
                             ),
                           ),
-                           SizedBox(
-                            height:1.h,
+                          SizedBox(
+                            height: 1.h,
                           ),
                         ],
                       ),
@@ -246,8 +253,9 @@ class _HomeState extends State<Home> {
                     child: Column(
                       //crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                         Padding(
-                          padding: EdgeInsets.only(top: 1.5.h, left: 1.w, right: 1.w),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 1.5.h, left: 1.w, right: 1.w),
                           child: Column(
                             children: [
                               Row(
@@ -277,7 +285,8 @@ class _HomeState extends State<Home> {
                         ),
                         Center(
                           child: Padding(
-                            padding:  EdgeInsets.only(left: 1.w, right: 1.w, top: 1.h),
+                            padding: EdgeInsets.only(
+                                left: 1.w, right: 1.w, top: 1.h),
                             child: Row(
                               children: [
                                 SizedBox(
@@ -288,7 +297,8 @@ class _HomeState extends State<Home> {
                                     style: TextButton.styleFrom(
                                       backgroundColor: Colors.pink[200],
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.sp),
+                                        borderRadius:
+                                            BorderRadius.circular(10.sp),
                                       ),
                                     ),
                                     child: Text(
@@ -304,7 +314,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                         Center(
+                        Center(
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 8.w),
                             child: Image(
@@ -314,7 +324,6 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -351,8 +360,8 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                    2.w, 0.0, 1.w, 2.h),
+                                padding:
+                                    EdgeInsets.fromLTRB(2.w, 0.0, 1.w, 2.h),
                                 child: Row(
                                   children: [
                                     SizedBox(
@@ -410,7 +419,8 @@ class _HomeState extends State<Home> {
                                   padding:
                                       EdgeInsets.only(left: 7.w, right: 0.0),
                                   child: Image(
-                                    image: AssetImage("lib/assets/cleaning.png"),
+                                    image:
+                                        AssetImage("lib/assets/cleaning.png"),
                                     width: 25.w,
                                     height: 25.w,
                                   ),
@@ -435,7 +445,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Column(
                           children: [
-                             Padding(
+                            Padding(
                               padding: EdgeInsets.all(8.sp),
                               child: Row(
                                 children: [
@@ -456,8 +466,7 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsets.fromLTRB(2.w, 0.0, 1.w, 2.h),
+                              padding: EdgeInsets.fromLTRB(2.w, 0.0, 1.w, 2.h),
                               child: Row(
                                 children: [
                                   SizedBox(
@@ -494,7 +503,7 @@ class _HomeState extends State<Home> {
                                               BorderRadius.circular(10.sp),
                                         ),
                                       ),
-                                      child:  Text(
+                                      child: Text(
                                         "COMMERCIAL",
                                         style: TextStyle(
                                           fontSize: 14.sp,
@@ -512,9 +521,11 @@ class _HomeState extends State<Home> {
                           children: [
                             Center(
                               child: Padding(
-                                padding: EdgeInsets.only(left: 12.w, right: 0.0),
+                                padding:
+                                    EdgeInsets.only(left: 12.w, right: 0.0),
                                 child: Image(
-                                  image: AssetImage("lib/assets/maintenance.png"),
+                                  image:
+                                      AssetImage("lib/assets/maintenance.png"),
                                   width: 20.w,
                                   height: 20.w,
                                 ),
