@@ -40,12 +40,13 @@ class UserData {
 
   factory UserData.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
+    print('hellowwwwwwww'+data['userName']);
     return UserData(
-        name: data['nameName'],
-        email: data['email'],
-        number: data['phone'],
-        gender: data['gender'],
-      bio: data['bio'],
+        name: data['userName']??'',
+        email: data['email']??'',
+        number: data['phone']??'',
+        gender: data['gender']??'',
+      bio: data['bio']??'',
     );
   }
 }

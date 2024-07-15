@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 import '../../../main.dart';
-import '../registerationLogin/register_screen.dart';
+import '../registeration_login/register_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFCDD2),
+      backgroundColor: Colors.black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,30 +58,9 @@ class _SplashScreenState extends State<SplashScreen> {
             Container(
               width: 150,
               height: 150,
-              child: Image.asset('lib/assets/mahir.png'),
+              child: Image.asset('lib/assets/mahir.jpg'),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Socio-',
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400),
-                ),
-                Text(
-                  'Connect',
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xFFEC407A),
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
+
           ],
         ),
       ),

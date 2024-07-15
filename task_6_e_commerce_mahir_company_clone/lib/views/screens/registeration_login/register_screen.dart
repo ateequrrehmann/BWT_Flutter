@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:myapp/views/screens/registerationLogin/user_details_screen.dart';
-import '../../../providers/stateNotifier/userProvider.dart';
+import 'package:myapp/views/screens/registeration_login/opt_screen.dart';
+import 'package:myapp/views/screens/registeration_login/user_details_screen.dart';
+import '../../../providers/state_notifier_provider/userProvider.dart';
 import '../../reusable_widgets/reusableSnackBar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -19,7 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isPhoneValid = false;
   String completePhoneNumber = '';
-
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Consumer(builder: (context, ref, child){
+                    Consumer(builder: (context, ref, child) {
                       return Container(
                         width: MediaQuery.of(context).size.width,
                         height: 50,
@@ -94,9 +95,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate() &&
                                 _isPhoneValid) {
-                              ref.read(userProvider.notifier).updateNumber(completePhoneNumber);
+                              ref
+                                  .read(userProvider.notifier)
+                                  .updateNumber(completePhoneNumber);
                               print(completePhoneNumber);
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>const UserDetailScreen()));
+                              DocumentSnapshot documentSnapshot =
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(completePhoneNumber)
+                                      .get();
+                              if (documentSnapshot.exists) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                try {
+                                  await FirebaseAuth.instance.verifyPhoneNumber(
+                                      phoneNumber: completePhoneNumber,
+                                      verificationCompleted:
+                                          (PhoneAuthCredential credential) {},
+                                      verificationFailed:
+                                          (FirebaseAuthException e) {
+                                        reusableSnackBar(context,
+                                            '${e.message!} Verification failed');
+                                      },
+                                      codeSent: (String verificationId,
+                                          int? resendToken) async {
+                                        // ref
+                                        //     .watch(userProvider.notifier)
+                                        //     .updateVerificationId(verificationId);
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    OtpForm()));
+                                      },
+                                      codeAutoRetrievalTimeout:
+                                          (String verificationId) {
+                                        // _dismissLoadingDialog(context);
+                                      });
+                                } catch (e) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                }
+                                print('hi  from  collections users');
+                              } else {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserDetailScreen()));
+                              }
                             } else {
                               if (!_isPhoneValid) {
                                 reusableSnackBar(
@@ -105,22 +154,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                           },
                           style: ButtonStyle(
-                              backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.black),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.black),
                               shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)))),
-                          child: const Text(
-                            'Continue',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
-                          ),
+                                      borderRadius:
+                                          BorderRadius.circular(10)))),
+                          child: isLoading
+                              ? CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  'Continue',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
                         ),
                       );
-
                     }),
                     // SizedBox(
                     //   height: 10,

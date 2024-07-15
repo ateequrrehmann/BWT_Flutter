@@ -5,12 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../providers/stateNotifier/userProvider.dart';
+import '../../../providers/state_notifier_provider/userProvider.dart';
 import '../../reusable_widgets/reusableSnackBar.dart';
 import '../profile_screen.dart';
 class OtpForm extends StatefulWidget {
-  final String id;
-  const OtpForm({super.key, required this.id});
+  const OtpForm({super.key});
 
   @override
   State<OtpForm> createState() => _OtpFormState();
@@ -50,6 +49,8 @@ class _OtpFormState extends State<OtpForm> {
         border: Border.all(color: Colors.transparent),
       ));
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +65,10 @@ class _OtpFormState extends State<OtpForm> {
             // final id=ref.watch(userProvider.select((value) => value.verificationId));
             final name=ref.watch(userProvider.select((value) => value.name));
             final email=ref.watch(userProvider.select((value) => value.email));
-            const image='lib/assets/avatar.png';
             final gender=ref.watch(userProvider.select((value) => value.gender));
+            print('after fetching gender value');
+
+            const image='lib/assets/avatar.png';
             return Column(
               children: [
                 const Text(
@@ -95,9 +98,10 @@ class _OtpFormState extends State<OtpForm> {
                   focusedPinTheme: focusedPinTheme,
                   submittedPinTheme: submittedPinTheme,
                   onCompleted: (pin) {
+                    print(gender);
                     code = pin;
                     isLoading?null
-                    :verifyUser(name, phone, email, widget.id, image, gender);
+                    :verifyUser(name, phone, email, image, gender);
                   },
                 ),
                 // Container(
@@ -125,7 +129,7 @@ class _OtpFormState extends State<OtpForm> {
                   child: ElevatedButton(
                     onPressed: isLoading
                         ? null
-                        : ()=>verifyUser(name, phone, email, widget.id, image, gender),
+                        : ()=>verifyUser(name, phone, email, image, gender),
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -153,13 +157,18 @@ class _OtpFormState extends State<OtpForm> {
     );
   }
 
-  Future<void> verifyUser(String name, String phone, String email, String id, String image, String gender)async{
+  Future<void> verifyUser(String name, String phone, String email, String image, String gender)async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    String? verification_id=prefs.getString('verification_id');
+    print(verification_id);
+    print('User Gender is $gender');
     setState(() {
       isLoading = true;
     });
     try {
+
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: id, smsCode: code);
+          verificationId: verification_id!, smsCode: code);
       UserCredential usercredential=await auth.signInWithCredential(credential);
       // Save user details to Firestore
       await FirebaseFirestore.instance

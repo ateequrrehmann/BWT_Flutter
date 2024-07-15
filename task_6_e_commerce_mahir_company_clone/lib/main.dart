@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myapp/views/screens/CleaningServices.dart';
-import 'package:myapp/views/screens/HomeServices.dart';
-import 'package:myapp/views/screens/registerationLogin/register_screen.dart';
+import 'package:myapp/views/screens/cleaning_services.dart';
+import 'package:myapp/views/screens/home_services.dart';
 import 'package:myapp/views/screens/splash_screen/splash_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'firebase_options.dart';

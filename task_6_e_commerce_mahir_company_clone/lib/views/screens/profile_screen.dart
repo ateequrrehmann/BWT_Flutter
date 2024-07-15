@@ -5,7 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/providers/future_provider/user_data_provider.dart';
-import '../../main.dart';
+import 'package:myapp/views/screens/registeration_login/register_screen.dart';
+import 'package:myapp/views/screens/user_location.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,11 +18,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final usersCollection = FirebaseFirestore.instance.collection('users');
   Uint8List? _image;
-
-  String? userName;
-  String? userPhone;
-  String? userBio;
   String? imageUrl;
+
 
   @override
   void initState() {
@@ -33,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Consumer(builder: (context, ref, child) {
       final data = ref.watch(userFirebaseProvider);
       return data.when(data: (user) {
+        print('fetched user data $user');
         return Scaffold(
           backgroundColor: const Color(0xFFE9EBEB),
           appBar: AppBar(
@@ -75,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Home(),
+                          builder: (context) => UserLocation(),
                         ),
                       );
                     },
@@ -103,12 +102,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: const Text("L O G O U T"),
                     leading: const Icon(Icons.logout),
                     onTap: () {
-                      // setState(() {
-                      //   Navigator.pushReplacement(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => const SignInScreen()));
-                      // });
+                      setState(() {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegisterScreen()));
+                      });
                     },
                   ),
                 ),
@@ -167,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               const SizedBox(height: 20),
-              buildDetailField('UserName', userName, () async {
+              buildDetailField('UserName', user.name, () async {
                 String newValue = "";
                 await showDialog(
                   context: context,
@@ -205,14 +204,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   ref.invalidate(userFirebaseProvider);
                 }
               }),
-              buildDetailField('Phone', userPhone, () {
+              buildDetailField('Phone', user.number, () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("can't change the phone number"),
                   ),
                 );
               }),
-              buildDetailField('Bio', userBio, () async {
+              buildDetailField('Bio', user.bio, () async {
                 String newValue = "";
                 await showDialog(
                     context: context,
@@ -248,7 +247,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ref.invalidate(userFirebaseProvider);
                 }
               }),
-              buildDetailField('Email', userBio, () async {
+              buildDetailField('Email', user.email, () async {
                 String newValue = "";
                 await showDialog(
                     context: context,
@@ -290,7 +289,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         );
       }, error: (error, track) {
-        return Center(child: Text('checking'));
+        return Center(child: Text('checking+$error'));
       }, loading: () {
         return Center(
           child: CircularProgressIndicator(),

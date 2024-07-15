@@ -10,11 +10,11 @@ final userFirebaseProvider=FutureProvider<UserData>((ref) async {
   UserData? userData;
 
   try{
-    final _documentSnapshot=await FirebaseFirestore.instance.collection('users').doc(phone).get();
-    print(_documentSnapshot.data());
+    final documentSnapshot=await FirebaseFirestore.instance.collection('users').doc(phone).get();
+    print(documentSnapshot.data());
 
 
-    return UserData.fromFirestore(_documentSnapshot);
+    return UserData.fromFirestore(documentSnapshot);
   }catch(e){
     print(e);
   }

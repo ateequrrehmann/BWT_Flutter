@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../providers/stateNotifier/userProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../providers/state_notifier_provider/userProvider.dart';
 import '../../reusable_widgets/resuableTextField.dart';
 import '../../reusable_widgets/reusableSnackBar.dart';
 import 'opt_screen.dart';
@@ -151,7 +152,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                           '${e.message!} Verification failed');
                                     },
                                     codeSent: (String verificationId,
-                                        int? resendToken) {
+                                        int? resendToken) async {
+                                      print(verificationId);
+                                      SharedPreferences prefs=await SharedPreferences.getInstance();
+                                      prefs.setString('verification_id', verificationId);
                                       // ref
                                       //     .watch(userProvider.notifier)
                                       //     .updateVerificationId(verificationId);
@@ -159,7 +163,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                   OtpForm(id: verificationId)));
+                                                   OtpForm()));
                                     },
                                     codeAutoRetrievalTimeout:
                                         (String verificationId) {
