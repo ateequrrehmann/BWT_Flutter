@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/views/screens/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => isLogin && phone != null
-                ? Home()
+                ? ProfilePage()
                 : RegisterScreen(),
           ),
         );

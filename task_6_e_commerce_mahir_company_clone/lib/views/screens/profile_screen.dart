@@ -31,6 +31,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return Consumer(builder: (context, ref, child) {
       final data = ref.watch(userFirebaseProvider);
       return data.when(data: (user) {
+        if(user.imageUrl != null && user.imageUrl!.isNotEmpty){
+          print('image    ${user.imageUrl}');
+        }
         print('fetched user data $user');
         return Scaffold(
           backgroundColor: const Color(0xFFE9EBEB),
@@ -59,9 +62,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     currentAccountPictureSize: const Size.square(40),
                     currentAccountPicture: CircleAvatar(
-                      backgroundImage: user.imageUrl != 'lib/assets/avatar.png'
+                      backgroundImage: user.imageUrl != null && user.imageUrl!.isNotEmpty
                           ? NetworkImage('${user.imageUrl}')
-                          : AssetImage('${user.imageUrl}') as ImageProvider,
+                          : null,
                     ),
                   ),
                 ),

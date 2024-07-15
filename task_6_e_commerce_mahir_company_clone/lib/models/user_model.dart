@@ -47,6 +47,7 @@ class UserData {
         number: data['phone']??'',
         gender: data['gender']??'',
       bio: data['bio']??'',
+      imageUrl: data['imageUrl']
     );
   }
 }

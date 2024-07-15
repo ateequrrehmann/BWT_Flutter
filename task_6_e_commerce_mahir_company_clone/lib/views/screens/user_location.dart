@@ -5,14 +5,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:myapp/providers/future_provider/user_location_provider.dart';
 
-class UserLocation extends StatefulWidget {
+class UserLocation extends ConsumerStatefulWidget {
   const UserLocation({super.key});
 
   @override
-  State<UserLocation> createState() => _UserLocationState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _UserLocationState();
+
+
 }
 
-class _UserLocationState extends State<UserLocation> {
+class _UserLocationState extends ConsumerState<UserLocation> {
   LatLng? currentPosition;
 
   @override
@@ -23,27 +25,25 @@ class _UserLocationState extends State<UserLocation> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, child){
-      final currentPosition=ref.watch(userLocationProvider as ProviderListenable<LatLng>);
       return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black12,
             title: const Text(
               'Location',
-              style: TextStyle(color: Colors.white),
             ),
             centerTitle: true,
             actions: [
-              IconButton(onPressed: (){ref.invalidate(userLocationProvider);}, icon: const Icon(Icons.refresh))
+              IconButton(onPressed: (){ref.invalidate(userLocationProvider);}, icon: const Icon(Icons.location_on_outlined, color: Colors.black))
             ],
           ),
-          body: Stack(
-            children: [
-              FlutterMap(
+          body: Consumer(builder: (context, ref, child){
+            final userLocation=ref.watch(userLocationProvider);
+            return userLocation.when(data: (currentPosition){
+              return FlutterMap(
                   options: MapOptions(
                     initialCenter: currentPosition,
                     // initialCenter: LatLng(33.6995, 73.0363),
-                    initialZoom: 3.2,
+                    initialZoom: 15,
                   ),
                   children: [
                     TileLayer(
@@ -63,12 +63,17 @@ class _UserLocationState extends State<UserLocation> {
                             color: Colors.red,
                           )),
                     ]),
-                  ])
-            ],
+                  ]);
+            }, error: (error, track) {
+              return Center(child: Text('checking+$error'));
+            }, loading: () {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            });
 
-          )
+          })
       );
-    });
 
   }
 

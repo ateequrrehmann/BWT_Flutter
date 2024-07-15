@@ -21,7 +21,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
   final _formKey = GlobalKey<FormState>();
   var _valueRadio = 1;
   bool isLoading = false;
-  String imageUrl="lib/assets/avatar.png";
+  String imageUrl="https://firebasestorage.googleapis.com/v0/b/mahircompanyclone.appspot.com/o/default_image%2Favatar.png?alt=media&token=1c65efe5-cb3c-4a6e-9fff-3e0ed9e5b661";
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +132,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                   .updateGender(gender);
                               ref
                                   .watch(userProvider.notifier)
-                                  .updateGender(imageUrl);
+                                  .updateImageUrl(imageUrl);
                               final username = ref.watch(
                                   userProvider.select((value) => value.name));
                               final completePhoneNumber = ref.watch(
