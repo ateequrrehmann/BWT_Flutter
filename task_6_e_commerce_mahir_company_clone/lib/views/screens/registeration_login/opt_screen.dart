@@ -7,7 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../providers/state_notifier_provider/userProvider.dart';
 import '../../reusable_widgets/reusableSnackBar.dart';
-import '../profile_screen.dart';
+import '../main_screens/home_screen.dart';
+import '../profile_screen/profile_screen.dart';
 class OtpForm extends StatefulWidget {
   const OtpForm({super.key});
 
@@ -170,26 +171,39 @@ class _OtpFormState extends State<OtpForm> {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verification_id!, smsCode: code);
       UserCredential usercredential=await auth.signInWithCredential(credential);
-      // Save user details to Firestore
+      // Save user details to Firestore ---> additionally I have to add latlong when the user creates the account
+      DocumentSnapshot documentSnapshot =
       await FirebaseFirestore.instance
           .collection('users')
           .doc(phone)
-          .set({
-        'userName': name,
-        'phone': phone,
-        'email': email,
-        'user_id': usercredential.user?.uid,
-        'imageUrl': 'lib/assets/avatar.png',
-        'gender': gender,
-        'bio': 'Empty Bio'
-      });
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user_phone', phone);
+          .get();
+      if(documentSnapshot.exists==false){
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(phone)
+            .set({
+          'userName': name,
+          'phone': phone,
+          'email': email,
+          'user_id': usercredential.user?.uid,
+          'imageUrl': 'lib/assets/avatar.png',
+          'gender': gender,
+          'bio': 'Empty Bio'
+        });
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('user_phone', phone);
 
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const ProfilePage()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ProfilePage()));
+      }
+      else{
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('user_phone', phone);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Home()));
+      }
+
     } catch (e) {
       setState(() {
         isLoading = false;

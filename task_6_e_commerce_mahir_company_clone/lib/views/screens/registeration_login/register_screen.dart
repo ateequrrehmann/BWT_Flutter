@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:myapp/views/screens/registeration_login/opt_screen.dart';
 import 'package:myapp/views/screens/registeration_login/user_details_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../providers/state_notifier_provider/userProvider.dart';
 import '../../reusable_widgets/reusableSnackBar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -120,9 +121,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       },
                                       codeSent: (String verificationId,
                                           int? resendToken) async {
-                                        // ref
-                                        //     .watch(userProvider.notifier)
-                                        //     .updateVerificationId(verificationId);
+                                        SharedPreferences prefs=await SharedPreferences.getInstance();
+                                        prefs.setString('verification_id', verificationId);
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(

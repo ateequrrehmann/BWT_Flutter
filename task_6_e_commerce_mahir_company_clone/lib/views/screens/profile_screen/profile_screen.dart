@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:typed_data';
@@ -6,7 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/providers/future_provider/user_data_provider.dart';
 import 'package:myapp/views/screens/registeration_login/register_screen.dart';
-import 'package:myapp/views/screens/user_location.dart';
+import 'package:myapp/views/user_location/user_location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -104,8 +106,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: ListTile(
                     title: const Text("L O G O U T"),
                     leading: const Icon(Icons.logout),
-                    onTap: () {
-                      setState(() {
+                    onTap: () async {
+                      SharedPreferences prefs=await SharedPreferences.getInstance();
+                      prefs.setString('verification_id', 'null');
+                      prefs.setString('user_phone', 'null');
+                      FirebaseAuth.instance.signOut();
+                      setState(()  {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -128,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             radius: 64,
                             backgroundImage: MemoryImage(_image!),
                           )
-                        : user.imageUrl != 'lib/assets/avatar.png'
+                        : user.imageUrl != null  && user.imageUrl!.isNotEmpty
                             ? CircleAvatar(
                                 radius: 64,
                                 backgroundImage:
@@ -136,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               )
                             : CircleAvatar(
                                 radius: 64,
-                                backgroundImage: AssetImage('${user.imageUrl}'),
+                                backgroundImage: NetworkImage('${user.imageUrl}'),
                               ),
                     Positioned(
                       bottom: -10,

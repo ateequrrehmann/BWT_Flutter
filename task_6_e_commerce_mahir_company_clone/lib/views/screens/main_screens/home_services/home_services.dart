@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:myapp/views/screens/main_screens/home_services/ac_services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HomeService extends StatefulWidget {
@@ -210,52 +212,57 @@ class _HomeServiceState extends State<HomeService> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            color: Colors.white70,
-                            child: Container(
-                              width: 25.w,
-                              height: 25.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.sp),
-                                image: const DecorationImage(
-                                  image: AssetImage("lib/assets/ac.png"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ACServices()));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Card(
+                              color: Colors.white70,
+                              child: Container(
+                                width: 25.w,
+                                height: 25.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.sp),
+                                  image: const DecorationImage(
+                                    image: AssetImage("lib/assets/ac.png"),
+                                  ),
                                 ),
-                              ),
 
+                              ),
                             ),
-                          ),
-                          Card(
-                            color: Colors.white70,
-                            child: Container(
-                              width: 25.w,
-                              height: 25.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.sp),
-                                image: const DecorationImage(
-                                  image: AssetImage("lib/assets/carpenter.png"),
+                            Card(
+                              color: Colors.white70,
+                              child: Container(
+                                width: 25.w,
+                                height: 25.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.sp),
+                                  image: const DecorationImage(
+                                    image: AssetImage("lib/assets/carpenter.png"),
+                                  ),
                                 ),
-                              ),
 
+                              ),
                             ),
-                          ),
-                          Card(
-                            color: Colors.white70,
-                            child: Container(
-                              width: 25.w,
-                              height: 25.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.sp),
-                                image: const DecorationImage(
-                                  image: AssetImage("lib/assets/electrician.png"),
+                            Card(
+                              color: Colors.white70,
+                              child: Container(
+                                width: 25.w,
+                                height: 25.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.sp),
+                                  image: const DecorationImage(
+                                    image: AssetImage("lib/assets/electrician.png"),
+                                  ),
                                 ),
-                              ),
 
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
