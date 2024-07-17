@@ -17,6 +17,7 @@ final homeServicesProvider = FutureProvider.family<List<ServicesModel>, String>(
         per: serviceData['per']??'',
         price: serviceData['price']??'',
         imageUrl: serviceData['picture']??'',
+        rating: serviceData['rating']??'',
         available: serviceData['available']??true);
   }).toList();
   return services;

@@ -5,6 +5,7 @@ class ServicesModel {
   final String per;
   final String price;
   final String imageUrl;
+  final String rating;
   final bool available;
 
   ServicesModel(
@@ -12,6 +13,7 @@ class ServicesModel {
       required this.per,
       required this.price,
       required this.imageUrl,
+        required this.rating,
       required this.available});
 
   ServicesModel copyWith(
@@ -19,12 +21,14 @@ class ServicesModel {
       String? per,
       String? price,
       String? imageUrl,
+        String? rating,
       bool? available}) {
     return ServicesModel(
         serviceName: serviceName ?? this.serviceName,
         per: per ?? this.per,
         price: price ?? this.price,
         imageUrl: imageUrl ?? this.imageUrl,
+        rating: rating ?? this.rating,
         available: available ?? this.available);
   }
 
@@ -35,6 +39,7 @@ class ServicesModel {
         per: data['per_$service']??'',
         price: data['price']??'',
         imageUrl: data['picture']??'',
+        rating: data['rating']??'',
         available: data['available']??true
     );
   }

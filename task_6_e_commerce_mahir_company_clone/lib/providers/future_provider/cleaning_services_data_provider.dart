@@ -17,6 +17,7 @@ final cleaningServicesProvider = FutureProvider.family<List<ServicesModel>, Stri
             per: serviceData['per']??'',
             price: serviceData['price']??'',
             imageUrl: serviceData['picture']??'',
+            rating: serviceData['rating']??'',
             available: serviceData['available']??true);
       }).toList();
       return services;

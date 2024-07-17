@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget reusableCardForServices(BuildContext context, String serviceName, String per, String price, String imageUrl, bool available){
+Widget reusableCardForServices(BuildContext context, String serviceName, String per, String price, String rating, String imageUrl, bool available){
   return Card(
     color: Colors.white70,
     child: Column(
@@ -32,12 +32,24 @@ Widget reusableCardForServices(BuildContext context, String serviceName, String 
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8 / 2),
+                    child: Row(
+                      children: [
+                        Icon(Icons.star),
+                        Text(
+                          rating,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                  ),
                   Row(
                     children:  [
                       Text(
                         price,
                         style: Theme.of(context).textTheme.bodySmall,
-
                       ),
                       Padding(padding: EdgeInsets.only(left: 65)),
                       Padding(
