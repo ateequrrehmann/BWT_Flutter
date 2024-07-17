@@ -7,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:myapp/providers/future_provider/user_location_provider.dart';
 
-import '../screens/main_screens/home_screen.dart';
+import '../main_screens/home_screen.dart';
 
 class UserLocation extends ConsumerStatefulWidget {
   const UserLocation({super.key});

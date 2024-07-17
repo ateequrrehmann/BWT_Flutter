@@ -412,34 +412,35 @@ class _HomeServiceState extends State<HomeService> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index){
-          setState(() {
-            myIndex=index;
-          });
-        },
-        currentIndex: myIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.list_rounded,
-            ),
-            label: 'Orders',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-            ),
-            label: 'Profile',
-          ),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   onTap: (index){
+      //     setState(() {
+      //       myIndex=index;
+      //     });
+      //   },
+      //   currentIndex: myIndex,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.home,
+      //       ),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(
+      //         Icons.list_rounded,
+      //       ),
+      //       label: 'Orders',
+      //     ),
+      //     BottomNavigationBarItem(
+      //
+      //       icon: Icon(
+      //         Icons.person,
+      //       ),
+      //       label: 'Profile',
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

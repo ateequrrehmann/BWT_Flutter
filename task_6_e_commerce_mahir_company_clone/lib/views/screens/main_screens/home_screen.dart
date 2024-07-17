@@ -2,14 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/providers/future_provider/user_data_provider.dart';
+import 'package:myapp/views/screens/main_screens/bottom_nav_bar/cleaning_services_bottom_navigation_bar.dart';
 import 'package:myapp/views/screens/main_screens/cleaning_services/cleaning_services.dart';
 import 'package:myapp/views/screens/main_screens/home_services/home_services.dart';
-import 'package:myapp/views/user_location/user_location.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../profile_screen/profile_screen.dart';
 import '../registeration_login/register_screen.dart';
+import '../user_location/user_location.dart';
+import 'bottom_nav_bar/home_services_bottom_navigation_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -285,7 +287,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomeService()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomeServicesBottomNavBar()));
                     },
                     child: Card(
                       color: Colors.white70,
@@ -458,7 +460,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const CleaningService()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const CleaningServicesBottomNavBar()));
                     },
                     child: Card(
                       color: Colors.white70,

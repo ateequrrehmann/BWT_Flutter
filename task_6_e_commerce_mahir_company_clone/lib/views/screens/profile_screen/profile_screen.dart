@@ -7,10 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/providers/future_provider/user_data_provider.dart';
 import 'package:myapp/views/screens/registeration_login/register_screen.dart';
-import 'package:myapp/views/user_location/user_location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main_screens/home_screen.dart';
+import '../user_location/user_location.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
