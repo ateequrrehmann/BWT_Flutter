@@ -10,6 +10,8 @@ import 'package:myapp/views/screens/registeration_login/register_screen.dart';
 import 'package:myapp/views/user_location/user_location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../main_screens/home_screen.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -79,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UserLocation(),
+                          builder: (context) => Home(),
                         ),
                       );
                     },
@@ -95,6 +97,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ProfilePage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: ListTile(
+                    title: const Text("U S E R  L O C A T I O N"),
+                    leading: const Icon(Icons.home),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserLocation(),
                         ),
                       );
                     },
