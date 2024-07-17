@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/models/services_model.dart';
 
-final servicesProvider = FutureProvider.family<List<ServicesModel>, String>(
+final homeServicesProvider = FutureProvider.family<List<ServicesModel>, String>(
     (ref, documentName) async {
   final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
       .collection('HomeServices')

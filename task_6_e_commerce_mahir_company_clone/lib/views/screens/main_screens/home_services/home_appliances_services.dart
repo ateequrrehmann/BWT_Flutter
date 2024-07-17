@@ -19,7 +19,7 @@ class _ACServicesState extends ConsumerState<HomeAppliancesServices> {
           title: Text('Home Appliances'),
         ),
         body: Consumer(builder: (context, ref, child) {
-          final service = ref.watch(servicesProvider('home_appliances'));
+          final service = ref.watch(homeServicesProvider('home_appliances'));
           return service.when(data: (serviceData) {
             return ListView.builder(
                 itemCount: serviceData.length,

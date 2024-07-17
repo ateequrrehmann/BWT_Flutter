@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myapp/providers/future_provider/home_services_data_provider.dart';
+import 'package:myapp/providers/future_provider/cleaning_services_data_provider.dart';
 import 'package:myapp/views/reusable_widgets/reusableCardForServices.dart';
 
-class GeyserServices extends ConsumerStatefulWidget {
-  const GeyserServices({super.key});
+class HouseDeepCleaningServices extends ConsumerStatefulWidget {
+  const HouseDeepCleaningServices({super.key});
 
   @override
-  ConsumerState<GeyserServices> createState() => _ACServicesState();
+  ConsumerState<HouseDeepCleaningServices> createState() => _ACServicesState();
 }
 
-class _ACServicesState extends ConsumerState<GeyserServices> {
+class _ACServicesState extends ConsumerState<HouseDeepCleaningServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Geyser'),
+          title: Text('House Deep Cleaning'),
         ),
         body: Consumer(builder: (context, ref, child) {
-          final service = ref.watch(homeServicesProvider('geyser'));
+          final service = ref.watch(cleaningServicesProvider('house_deep'));
           return service.when(data: (serviceData) {
             return ListView.builder(
                 itemCount: serviceData.length,

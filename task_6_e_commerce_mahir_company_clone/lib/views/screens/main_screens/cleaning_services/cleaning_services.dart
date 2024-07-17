@@ -1,4 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/carpet_cleaning_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/cement_water_tank_cleaning_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/chair_cleaning_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/commercial_deep_cleaning_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/curtain_cleaning_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/house_deep_cleaning_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/mattress_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/plastic_water_tank_cleaning_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/sofa_cleaning_services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 
@@ -116,46 +127,61 @@ class _CleaningServiceState extends State<CleaningService> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/sofa.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SofaCleaningServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/sofa.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/tank.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>PlasticWaterTankServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/tank.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/mattress.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>MattressCleaningServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/mattress.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
                       ],
@@ -209,46 +235,61 @@ class _CleaningServiceState extends State<CleaningService> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/house.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>HouseDeepCleaningServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/house.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/curtain.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CurtainCleaningServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/curtain.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/chair.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ChairCleaningServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/chair.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
                       ],
@@ -298,46 +339,61 @@ class _CleaningServiceState extends State<CleaningService> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/cementwater.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CementWaterTankCleaningServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/cementwater.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/carpet.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CarpetCleaningServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/carpet.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
-                        Card(
-                          color: Colors.white70,
-                          child: Container(
-                            width: 27.w,
-                            height: 27.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.sp),
-                              image: const DecorationImage(
-                                image: AssetImage("lib/assets/commercialdeep.png"),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CommercialDeepCleaningServices()));
+                          },
+                          child: Card(
+                            color: Colors.white70,
+                            child: Container(
+                              width: 27.w,
+                              height: 27.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.sp),
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/assets/commercialdeep.png"),
+                                ),
                               ),
-                            ),
 
+                            ),
                           ),
                         ),
                       ],

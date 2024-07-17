@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/providers/future_provider/user_data_provider.dart';
-import 'package:myapp/views/screens/main_screens/cleaning_services.dart';
+import 'package:myapp/views/screens/main_screens/cleaning_services/cleaning_services.dart';
 import 'package:myapp/views/screens/main_screens/home_services/home_services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
