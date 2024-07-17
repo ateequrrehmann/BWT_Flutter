@@ -2,7 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myapp/views/screens/main_screens/home_services/ac_services.dart';
+import 'package:myapp/views/screens/main_screens/home_services/geyser_services.dart';
+import 'package:myapp/views/screens/main_screens/home_services/handyman_services.dart';
+import 'package:myapp/views/screens/main_screens/home_services/home_appliances_services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import 'carpenter_services.dart';
+import 'electrician_services.dart';
 
 class HomeService extends StatefulWidget {
   const HomeService({super.key});
@@ -212,14 +218,14 @@ class _HomeServiceState extends State<HomeService> {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ACServices()));
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Card(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ACServices()));
+                            },
+                            child: Card(
                               color: Colors.white70,
                               child: Container(
                                 width: 25.w,
@@ -233,7 +239,13 @@ class _HomeServiceState extends State<HomeService> {
 
                               ),
                             ),
-                            Card(
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CarpenterServices()));
+                            },
+
+                            child: Card(
                               color: Colors.white70,
                               child: Container(
                                 width: 25.w,
@@ -247,7 +259,13 @@ class _HomeServiceState extends State<HomeService> {
 
                               ),
                             ),
-                            Card(
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ElectricianServices()));
+                            },
+
+                            child: Card(
                               color: Colors.white70,
                               child: Container(
                                 width: 25.w,
@@ -261,8 +279,8 @@ class _HomeServiceState extends State<HomeService> {
 
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -294,46 +312,61 @@ class _HomeServiceState extends State<HomeService> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Card(
-                            color: Colors.white70,
-                            child: Container(
-                              width: 25.w,
-                              height: 25.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.sp),
-                                image: const DecorationImage(
-                                  image: AssetImage("lib/assets/geyser.png"),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>GeyserServices()));
+                            },
+                            child: Card(
+                              color: Colors.white70,
+                              child: Container(
+                                width: 25.w,
+                                height: 25.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.sp),
+                                  image: const DecorationImage(
+                                    image: AssetImage("lib/assets/geyser.png"),
+                                  ),
                                 ),
-                              ),
 
+                              ),
                             ),
                           ),
-                          Card(
-                            color: Colors.white70,
-                            child: Container(
-                              width: 25.w,
-                              height: 25.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.sp),
-                                image: const DecorationImage(
-                                  image: AssetImage("lib/assets/handyman.png"),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>HandyManServices()));
+                            },
+                            child: Card(
+                              color: Colors.white70,
+                              child: Container(
+                                width: 25.w,
+                                height: 25.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.sp),
+                                  image: const DecorationImage(
+                                    image: AssetImage("lib/assets/handyman.png"),
+                                  ),
                                 ),
-                              ),
 
+                              ),
                             ),
                           ),
-                          Card(
-                            color: Colors.white70,
-                            child: Container(
-                              width: 25.w,
-                              height: 25.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.sp),
-                                image: const DecorationImage(
-                                  image: AssetImage("lib/assets/homeappliances.png"),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeAppliancesServices()));
+                            },
+                            child: Card(
+                              color: Colors.white70,
+                              child: Container(
+                                width: 25.w,
+                                height: 25.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.sp),
+                                  image: const DecorationImage(
+                                    image: AssetImage("lib/assets/homeappliances.png"),
+                                  ),
                                 ),
-                              ),
 
+                              ),
                             ),
                           ),
                         ],

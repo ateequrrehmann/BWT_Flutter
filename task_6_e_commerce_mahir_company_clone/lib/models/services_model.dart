@@ -35,7 +35,7 @@ class ServicesModel {
         per: data['per_$service']??'',
         price: data['price']??'',
         imageUrl: data['picture']??'',
-        available: data['available']??''
+        available: data['available']??true
     );
   }
 }

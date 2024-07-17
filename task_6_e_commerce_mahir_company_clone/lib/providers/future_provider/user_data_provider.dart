@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final userFirebaseProvider=FutureProvider<UserData>((ref) async {
   SharedPreferences prefs=await SharedPreferences.getInstance();
-  prefs.setString('user_phone', '+923111502674');
   final phone = prefs.getString('user_phone');
   final data=prefs.getString('verification_id');
   print('verificationId+ $data');
