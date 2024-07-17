@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/providers/future_provider/home_services_data_provider.dart';
 import 'package:myapp/views/reusable_widgets/reusableCardForServices.dart';
+
+import '../../../shimmer_effect/services_card_skeleton.dart';
 
 class ACServices extends ConsumerStatefulWidget {
   const ACServices({super.key});
@@ -40,8 +41,10 @@ class _ACServicesState extends ConsumerState<ACServices> {
           }, error: (error, track) {
             return Center(child: Text('checking+$error'));
           }, loading: () {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return ListView.separated(
+                itemBuilder: (context, index)=>const ServicesCardSkeleton(),
+                separatorBuilder: (context, indext)=>const SizedBox(height: 16,),
+                itemCount: 5
             );
           });
         }));
