@@ -36,7 +36,8 @@ class _ACServicesState extends ConsumerState<HandyManServices> {
                           data.price,
                           data.rating,
                           'https://firebasestorage.googleapis.com/v0/b/mahircompanyclone.appspot.com/o/default_image%2Favatar.png?alt=media&token=1c65efe5-cb3c-4a6e-9fff-3e0ed9e5b661',
-                          data.available),
+                          data.available,
+                          'handyman','HomeServices'),
                     ],
                   );
                 });
@@ -44,10 +45,11 @@ class _ACServicesState extends ConsumerState<HandyManServices> {
             return Center(child: Text('checking+$error'));
           }, loading: () {
             return ListView.separated(
-                itemBuilder: (context, index)=>const ServicesCardSkeleton(),
-                separatorBuilder: (context, indext)=>const SizedBox(height: 16,),
-                itemCount: 5
-            );
+                itemBuilder: (context, index) => const ServicesCardSkeleton(),
+                separatorBuilder: (context, indext) => const SizedBox(
+                      height: 16,
+                    ),
+                itemCount: 5);
           });
         }));
   }
