@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -188,7 +189,8 @@ class _OtpFormState extends State<OtpForm> {
           'user_id': usercredential.user?.uid,
           'imageUrl': 'lib/assets/avatar.png',
           'gender': gender,
-          'bio': 'Empty Bio'
+          'bio': 'Empty Bio',
+          'latlong': LatLng(0.0, 0.0),
         });
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_phone', phone);
