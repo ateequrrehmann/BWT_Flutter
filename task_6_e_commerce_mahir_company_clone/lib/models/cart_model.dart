@@ -7,7 +7,7 @@ class CartModel {
   final String imageUrl;
   final String rating;
   final bool available;
-  final int quantity;
+  int quantity;
   final double totalPrice;
 
   CartModel(

@@ -69,6 +69,7 @@ Widget reusableCardForServices(
                                 await SharedPreferences.getInstance();
                                 final phone = prefs.getString('user_phone');
                                 Map<String, dynamic> serviceData = {
+                                  'serviceName': serviceName,
                                   'available': true,
                                   'per': per,
                                   'price': price,

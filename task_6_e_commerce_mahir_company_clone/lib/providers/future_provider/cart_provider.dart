@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +15,7 @@ final cartProvider = FutureProvider<List<CartModel>>((ref) async {
     carts = data.entries.map((entry) {
       final cartData = entry.value as Map<String, dynamic>;
       return CartModel(
-          serviceName: cartData['serviceData'] ?? '',
+          serviceName: cartData['serviceName'] ?? '',
           per: cartData['per'] ?? '',
           price: cartData['price'] ?? '',
           imageUrl: cartData['picture'] ?? '',
