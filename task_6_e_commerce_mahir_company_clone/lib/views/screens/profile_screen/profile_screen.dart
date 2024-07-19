@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/providers/future_provider/user_data_provider.dart';
+import 'package:myapp/views/screens/main_screens/order_management/order_screen.dart';
 import 'package:myapp/views/screens/registeration_login/register_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 DrawerHeader(
                   decoration: const BoxDecoration(
-                    // color: Color(0xFFEC407A),
+                    color: Colors.black,
                   ),
                   child: UserAccountsDrawerHeader(
                     decoration: const BoxDecoration(
@@ -105,8 +106,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: ListTile(
+                    title: const Text("O R D E R S"),
+                    leading: const Icon(Icons.list),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrderScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: ListTile(
                     title: const Text("U S E R  L O C A T I O N"),
-                    leading: const Icon(Icons.home),
+                    leading: const Icon(Icons.location_pin),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -117,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                   ),
                 ),
-                const SizedBox(height: 350),
+                const SizedBox(height: 250),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: ListTile(

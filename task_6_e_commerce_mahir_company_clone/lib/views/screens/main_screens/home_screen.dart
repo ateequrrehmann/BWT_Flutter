@@ -12,6 +12,7 @@ import '../profile_screen/profile_screen.dart';
 import '../registeration_login/register_screen.dart';
 import '../user_location/user_location.dart';
 import 'bottom_nav_bar/home_services_bottom_navigation_bar.dart';
+import 'order_management/order_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _HomeState extends State<Home> {
                   children: [
                     DrawerHeader(
                       decoration: const BoxDecoration(
-                        // color: Color(0xFFEC407A),
+                        color: Colors.black,
                       ),
                       child: UserAccountsDrawerHeader(
                         decoration: const BoxDecoration(
@@ -59,6 +60,7 @@ class _HomeState extends State<Home> {
                         ),
                         accountEmail: Text(
                           user.number,
+
                         ),
                         currentAccountPictureSize: const Size.square(40),
                         currentAccountPicture: CircleAvatar(
@@ -101,8 +103,23 @@ class _HomeState extends State<Home> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: ListTile(
+                        title: const Text("O R D E R S"),
+                        leading: const Icon(Icons.list),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OrderScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: ListTile(
                         title: const Text("U S E R  L O C A T I O N"),
-                        leading: const Icon(Icons.home),
+                        leading: const Icon(Icons.location_pin),
                         onTap: () {
                           Navigator.push(
                             context,
@@ -113,7 +130,7 @@ class _HomeState extends State<Home> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 350),
+                    const SizedBox(height: 250),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: ListTile(
