@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final usersCollection = FirebaseFirestore.instance.collection('users');
   Uint8List? _image;
   String? imageUrl;
+  String selectedTile = 'PROFILE';
 
 
   @override
@@ -73,64 +74,100 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: ListTile(
-                    title: const Text("H O M E"),
-                    leading: const Icon(Icons.home),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Home(),
-                        ),
-                      );
-                    },
+                Container(
+                  decoration: BoxDecoration(
+                    color: selectedTile=="HOME"?
+                        Colors.grey:Colors.transparent,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: ListTile(
+                      title: const Text("H O M E"),
+                      leading: const Icon(Icons.home),
+                      onTap: () {
+                        setState(() {
+                          selectedTile="HOME";
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Home(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: ListTile(
-                    title: const Text("P R O F I L E"),
-                    leading: const Icon(Icons.person),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProfilePage(),
-                        ),
-                      );
-                    },
+                Container(
+                  decoration: BoxDecoration(
+                    color: selectedTile=="PROFILE"?
+                    Colors.grey:Colors.transparent,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: ListTile(
+                      title: const Text("P R O F I L E"),
+                      leading: const Icon(Icons.person),
+                      onTap: () {
+                        setState(() {
+                          selectedTile="PROFILE";
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfilePage(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: ListTile(
-                    title: const Text("O R D E R S"),
-                    leading: const Icon(Icons.list),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OrderScreen(),
-                        ),
-                      );
-                    },
+                Container(
+                  decoration: BoxDecoration(
+                    color: selectedTile=="ORDERS"?
+                    Colors.grey:Colors.transparent,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: ListTile(
+                      title: const Text("O R D E R S"),
+                      leading: const Icon(Icons.list),
+                      onTap: () {
+                        setState(() {
+                          selectedTile="ORDERS";
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrderScreen(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: ListTile(
-                    title: const Text("U S E R  L O C A T I O N"),
-                    leading: const Icon(Icons.location_pin),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UserLocation(),
-                        ),
-                      );
-                    },
+                Container(
+                  decoration: BoxDecoration(
+                    color: selectedTile=="USERLOCATION"?
+                    Colors.grey:Colors.transparent,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: ListTile(
+                      title: const Text("U S E R  L O C A T I O N"),
+                      leading: const Icon(Icons.location_pin),
+                      onTap: () {
+                        setState(() {
+                          selectedTile="USERLOCATION";
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserLocation(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(height: 250),
