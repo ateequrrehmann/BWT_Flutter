@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myapp/providers/future_provider/quantity_fetcher_provider.dart';
+import 'package:myapp/views/reusable_widgets/reusableSnackBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../providers/future_provider/cart_provider.dart';
@@ -23,6 +25,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     ref.invalidate(cartProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Order'),
@@ -101,6 +104,8 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                                   print(
                                                       'Service ${data.serviceName} deleted');
                                                   ref.invalidate(cartProvider);
+                                                  reusableSnackBar(context,  'Service ${data.serviceName} deleted');
+                                                  ref.invalidate(quantityFetcher(data.serviceName));
                                                 },
                                                 icon:
                                                     Icon(Icons.delete_forever)),

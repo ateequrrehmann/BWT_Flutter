@@ -1,7 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myapp/providers/future_provider/quantity_fetcher_provider.dart';
 import 'package:myapp/views/reusable_widgets/reusableSnackBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+
+
+
+
+
 
 Widget reusableCardForServices(
     BuildContext context,
@@ -12,13 +20,12 @@ Widget reusableCardForServices(
     String imageUrl,
     bool available,
     String baseDocument,
-    String baseCollection) {
-
-  int quantityCount = 0; // Define quantityCount outside the StatefulBuilder
+    int quantity) {
   double totalPrice = 0;
-
+  int quantityCount=quantity;
   return StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
+
       return Card(
         color: Colors.white70,
         child: Column(
@@ -58,56 +65,56 @@ Widget reusableCardForServices(
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                             Padding(padding: EdgeInsets.only(left: 20)),
-                            quantityCount > 0
-                                ? TextButton(
-                              onPressed: () async {
-                                if (quantityCount > 0) {
-                                  totalPrice =
-                                      quantityCount * (double.parse(price));
-                                }
-                                SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                                final phone = prefs.getString('user_phone');
-                                Map<String, dynamic> serviceData = {
-                                  'serviceName': serviceName,
-                                  'available': true,
-                                  'per': per,
-                                  'price': price,
-                                  'rating': rating,
-                                  'picture': imageUrl,
-                                  'baseDocument': baseDocument,
-                                  'baseCollection': baseCollection,
-                                  'quantity': quantityCount,
-                                  'totalPrice': totalPrice,
-                                };
-                                final DocumentSnapshot documentSnapshot =
-                                await FirebaseFirestore.instance
-                                    .collection('cart')
-                                    .doc(phone)
-                                    .get();
-                                print(documentSnapshot.exists);
-                                if (documentSnapshot.exists) {
-                                  FirebaseFirestore.instance
+                            Consumer(builder: (context, ref, child){
+                              return quantityCount > 0
+                                  ? TextButton(
+                                onPressed: () async {
+                                  if (quantityCount > 0) {
+                                    totalPrice = quantityCount * double.parse(price);
+                                  }
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  final phone = prefs.getString('user_phone');
+                                  Map<String, dynamic> serviceData = {
+                                    'serviceName': serviceName,
+                                    'available': true,
+                                    'per': per,
+                                    'price': price,
+                                    'rating': rating,
+                                    'picture': imageUrl,
+                                    'baseDocument': baseDocument,
+                                    'quantity': quantityCount,
+                                    'totalPrice': totalPrice,
+                                  };
+                                  final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
                                       .collection('cart')
                                       .doc(phone)
-                                      .update({
-                                    serviceName: serviceData,
-                                  });
-                                  print('existing');
-                                } else {
-                                  print('oops not available');
-                                  FirebaseFirestore.instance
-                                      .collection('cart')
-                                      .doc(phone)
-                                      .set({
-                                    serviceName: serviceData,
-                                  });
-                                }
-                                reusableSnackBar(context, 'service added to cart successfully');
-                              },
-                              child: Text('Add to cart'),
-                            )
-                                : Text(''),
+                                      .get();
+                                  print(documentSnapshot.exists);
+                                  if (documentSnapshot.exists) {
+                                    FirebaseFirestore.instance
+                                        .collection('cart')
+                                        .doc(phone)
+                                        .update({
+                                      serviceName: serviceData,
+                                    });
+                                    print('existing');
+                                  } else {
+                                    print('oops not available');
+                                    FirebaseFirestore.instance
+                                        .collection('cart')
+                                        .doc(phone)
+                                        .set({
+                                      serviceName: serviceData,
+                                    });
+                                  }
+                                  ref.invalidate(quantityFetcher(serviceName));
+                                  reusableSnackBar(context, 'service added to cart successfully');
+                                },
+                                child: Text('Add to cart'),
+                              )
+                                  : Text('');
+                            },),
+
                           ],
                         ),
                       ),
@@ -147,7 +154,6 @@ Widget reusableCardForServices(
                             },
                             child: Icon(Icons.add),
                           ),
-
                         ],
                       )
                     ],
@@ -161,3 +167,4 @@ Widget reusableCardForServices(
     },
   );
 }
+
