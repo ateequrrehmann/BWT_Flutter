@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:myapp/providers/future_provider/history_provider.dart';
 import 'package:myapp/providers/future_provider/quantity_fetcher_provider.dart';
 import 'package:myapp/views/reusable_widgets/reusableSnackBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,14 +10,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../providers/future_provider/cart_provider.dart';
 import '../../../shimmer_effect/services_card_skeleton.dart';
 
-class OrderScreen extends ConsumerStatefulWidget {
-  const OrderScreen({super.key});
+class HistoryScreen extends ConsumerStatefulWidget {
+  const HistoryScreen({super.key});
 
   @override
-  ConsumerState<OrderScreen> createState() => _OrderScreenState();
+  ConsumerState<HistoryScreen> createState() => _OrderScreenState();
 }
 
-class _OrderScreenState extends ConsumerState<OrderScreen> {
+class _OrderScreenState extends ConsumerState<HistoryScreen> {
 
   @override
   void initState() {
@@ -25,21 +27,22 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.invalidate(cartProvider);
+    ref.invalidate(historyProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order'),
+        title: Text('Order History'),
       ),
       body: Consumer(
         builder: (context, ref, child) {
-          final data = ref.watch(cartProvider);
+          final data = ref.watch(historyProvider);
           return data.when(data: (orderData) {
-            ref.watch(cartProvider);
+            ref.watch(historyProvider);
             return ListView.builder(
                 itemCount: orderData.length,
                 itemBuilder: (context, index) {
                   final data = orderData[index];
+                  final formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(data.dateTime);
                   return Card(
                     color: Colors.white70,
                     child: Column(
@@ -59,6 +62,12 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
+                                    'Ckeckout time $formattedDate',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
                                     data.serviceName,
                                     style: TextStyle(
                                         fontSize: 16,
@@ -70,7 +79,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                     child: Text(
                                       data.per,
                                       style:
-                                          Theme.of(context).textTheme.bodySmall,
+                                      Theme.of(context).textTheme.bodySmall,
                                     ),
                                   ),
                                   Padding(
@@ -85,31 +94,6 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                               .textTheme
                                               .bodySmall,
                                         ),
-                                        Padding(
-                                            padding: EdgeInsets.only(left: 20)),
-                                        IconButton(
-                                                onPressed: () async {
-                                                  SharedPreferences prefs =
-                                                      await SharedPreferences
-                                                          .getInstance();
-                                                  final phone = prefs
-                                                      .getString('user_phone');
-                                                  await FirebaseFirestore
-                                                      .instance
-                                                      .collection('cart')
-                                                      .doc(phone)
-                                                      .update({
-                                                    data.serviceName:
-                                                        FieldValue.delete(),
-                                                  });
-                                                  print(
-                                                      'Service ${data.serviceName} deleted');
-                                                  ref.invalidate(cartProvider);
-                                                  reusableSnackBar(context,  'Service ${data.serviceName} deleted');
-                                                  ref.invalidate(quantityFetcher(data.serviceName));
-                                                },
-                                                icon:
-                                                    Icon(Icons.delete_forever)),
                                       ],
                                     ),
                                   ),
@@ -143,47 +127,14 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
             return ListView.separated(
                 itemBuilder: (context, index) => const ServicesCardSkeleton(),
                 separatorBuilder: (context, index) => const SizedBox(
-                      height: 16,
-                    ),
+                  height: 16,
+                ),
                 itemCount: 5);
           });
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: checkOut,
-        child: Icon(Icons.arrow_forward_sharp),
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.black,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        tooltip: 'Checkout',
-      ),
+
     );
   }
 
-  Future<void> checkOut() async{
-    print('hellllo');
-    SharedPreferences prefs=await SharedPreferences.getInstance();
-    final phone=prefs.getString('user_phone');
-
-    final cartSnapshot=await FirebaseFirestore.instance.collection('cart').doc(phone).get();
-
-    if(cartSnapshot.exists){
-      final cartItem=cartSnapshot.data();
-      FirebaseFirestore.instance.collection('history').doc(phone).set({
-          'items': cartItem,
-        'dateTime': DateTime.now()
-      });
-
-      await FirebaseFirestore.instance.collection('cart').doc(phone).delete();
-      
-      reusableSnackBar(context, 'Order Placed Successfully');
-      ref.invalidate(cartProvider);
-    }
-    else{
-      print('oh no not found');
-      reusableSnackBar(context, 'No item in cart');
-    }
-
-
-  }
 }

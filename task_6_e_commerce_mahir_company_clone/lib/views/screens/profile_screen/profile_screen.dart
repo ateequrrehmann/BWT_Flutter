@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myapp/providers/future_provider/user_data_provider.dart';
+import 'package:myapp/views/screens/main_screens/history/order_history.dart';
 import 'package:myapp/views/screens/main_screens/order_management/order_screen.dart';
 import 'package:myapp/views/screens/registeration_login/register_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -148,6 +149,30 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
+                    color: selectedTile=="HISTORY"?
+                    Colors.grey:Colors.transparent,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: ListTile(
+                      title: const Text("O R D E R  H I S T O R Y"),
+                      leading: const Icon(Icons.history_outlined),
+                      onTap: () {
+                        setState(() {
+                          selectedTile="HISTORY";
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HistoryScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
                     color: selectedTile=="USERLOCATION"?
                     Colors.grey:Colors.transparent,
                   ),
@@ -170,7 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 250),
+                const SizedBox(height: 200),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: ListTile(

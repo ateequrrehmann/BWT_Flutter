@@ -12,6 +12,7 @@ import '../profile_screen/profile_screen.dart';
 import '../registeration_login/register_screen.dart';
 import '../user_location/user_location.dart';
 import 'bottom_nav_bar/home_services_bottom_navigation_bar.dart';
+import 'history/order_history.dart';
 import 'order_management/order_screen.dart';
 
 class Home extends StatefulWidget {
@@ -144,6 +145,30 @@ class _HomeState extends State<Home> {
                     ),
                     Container(
                       decoration: BoxDecoration(
+                        color: selectedTile=="HISTORY"?
+                        Colors.grey:Colors.transparent,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: ListTile(
+                          title: const Text("O R D E R  H I S T O R Y"),
+                          leading: const Icon(Icons.history_outlined),
+                          onTap: () {
+                            setState(() {
+                              selectedTile="HISTORY";
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HistoryScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
                         color: selectedTile=="USERLOCATION"?
                         Colors.grey:Colors.transparent,
                       ),
@@ -166,7 +191,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 250),
+                    const SizedBox(height: 200),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: ListTile(
