@@ -16,6 +16,7 @@ class OrderScreen extends ConsumerStatefulWidget {
 }
 
 class _OrderScreenState extends ConsumerState<OrderScreen> {
+
   @override
   void initState() {
     // TODO: implement initState
@@ -120,41 +121,13 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                             .textTheme
                                             .bodySmall,
                                       ),
-                                      // Padding(
-                                      //   padding: EdgeInsets.symmetric(
-                                      //       horizontal: 8 / 2),
-                                      //   child: CircleAvatar(
-                                      //     radius: 3,
-                                      //     backgroundColor: Colors.grey,
-                                      //   ),
-                                      // ),
-                                      // TextButton(
-                                      //   onPressed: () {
-                                      //     setState(() {
-                                      //       if (data.quantity > 0) {
-                                      //         data.quantity--;
-                                      //       }
-                                      //     });
-                                      //
-                                      //     print(data.quantity);
-                                      //   },
-                                      //   child: Icon(Icons.remove),
-                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 20),
                                         child: Text('Quantity ${data.quantity.toString()}'),
                                       ),
-                                      // TextButton(
-                                      //   onPressed: () {
-                                      //     setState(() {
-                                      //       data.quantity++;
-                                      //     });
-                                      //     print(data.quantity);
-                                      //   },
-                                      //   child: Icon(Icons.add),
-                                      // ),
+
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             )
@@ -176,6 +149,41 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
           });
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: checkOut,
+        child: Icon(Icons.arrow_forward_sharp),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        tooltip: 'Checkout',
+      ),
     );
+  }
+
+  Future<void> checkOut() async{
+    print('hellllo');
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    final phone=prefs.getString('user_phone');
+
+    final cartSnapshot=await FirebaseFirestore.instance.collection('cart').doc(phone).get();
+
+    if(cartSnapshot.exists){
+      final cartItem=cartSnapshot.data();
+      FirebaseFirestore.instance.collection('history').doc(phone).set({
+          'items': cartItem,
+        'dateTime': DateTime.now()
+      });
+
+      await FirebaseFirestore.instance.collection('cart').doc(phone).delete();
+      
+      reusableSnackBar(context, 'Order Placed Successfully');
+      ref.invalidate(cartProvider);
+    }
+    else{
+      print('oh no not found');
+      reusableSnackBar(context, 'No item in cart');
+    }
+
+
   }
 }
