@@ -29,7 +29,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order'),
+        title: const Text('Order'),
       ),
       body: Consumer(
         builder: (context, ref, child) {
@@ -60,7 +60,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                 children: [
                                   Text(
                                     data.serviceName,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -78,14 +78,14 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                         vertical: 8 / 2),
                                     child: Row(
                                       children: [
-                                        Icon(Icons.star),
+                                        const Icon(Icons.star),
                                         Text(
                                           data.rating,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall,
                                         ),
-                                        Padding(
+                                        const Padding(
                                             padding: EdgeInsets.only(left: 20)),
                                         IconButton(
                                                 onPressed: () async {
@@ -109,7 +109,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                                   ref.invalidate(quantityFetcher(data.serviceName));
                                                 },
                                                 icon:
-                                                    Icon(Icons.delete_forever)),
+                                                    const Icon(Icons.delete_forever)),
                                       ],
                                     ),
                                   ),
@@ -151,11 +151,11 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: checkOut,
-        child: Icon(Icons.arrow_forward_sharp),
         foregroundColor: Colors.white,
         backgroundColor: Colors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         tooltip: 'Checkout',
+        child: const Icon(Icons.arrow_forward_sharp),
       ),
     );
   }

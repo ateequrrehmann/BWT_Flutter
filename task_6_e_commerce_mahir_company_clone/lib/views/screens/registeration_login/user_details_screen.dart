@@ -153,9 +153,9 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                                     },
                                     codeSent: (String verificationId,
                                         int? resendToken) async {
-                                      print(verificationId);
                                       SharedPreferences prefs=await SharedPreferences.getInstance();
                                       prefs.setString('verification_id', verificationId);
+                                      print('user detail screen $verificationId');
                                       // ref
                                       //     .watch(userProvider.notifier)
                                       //     .updateVerificationId(verificationId);

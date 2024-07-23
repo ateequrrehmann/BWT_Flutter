@@ -140,6 +140,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
                                 print('hi  from  collections users');
                               } else {
+                                setState(() {
+                                  isLoading = true;
+                                });
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

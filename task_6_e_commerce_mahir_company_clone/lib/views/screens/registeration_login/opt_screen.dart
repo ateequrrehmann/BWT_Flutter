@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:myapp/views/screens/user_location/user_location.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,6 +64,7 @@ class _OtpFormState extends State<OtpForm> {
           width: double.infinity,
           child: Consumer(builder: (context, ref, child){
             final phone=ref.watch(userProvider.select((value) => value.number));
+            print(phone);
             // final id=ref.watch(userProvider.select((value) => value.verificationId));
             final name=ref.watch(userProvider.select((value) => value.name));
             final email=ref.watch(userProvider.select((value) => value.email));
@@ -162,23 +163,27 @@ class _OtpFormState extends State<OtpForm> {
   Future<void> verifyUser(String name, String phone, String email, String image, String gender)async{
     SharedPreferences prefs=await SharedPreferences.getInstance();
     String? verification_id=prefs.getString('verification_id');
-    print(verification_id);
+    print('otp screen verification id $verification_id');
     print('User Gender is $gender');
     setState(() {
       isLoading = true;
     });
     try {
-
+      print('in try block');
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verification_id!, smsCode: code);
+      print('just pass the and get user PhoneAuth');
       UserCredential usercredential=await auth.signInWithCredential(credential);
+      print('getting user credentials');
       // Save user details to Firestore ---> additionally I have to add latlong when the user creates the account
       DocumentSnapshot documentSnapshot =
       await FirebaseFirestore.instance
           .collection('users')
           .doc(phone)
           .get();
+      print('fetching document snapshot');
       if(documentSnapshot.exists==false){
+        print('document doesn\'t exists');
         await FirebaseFirestore.instance
             .collection('users')
             .doc(phone)
@@ -187,13 +192,16 @@ class _OtpFormState extends State<OtpForm> {
           'phone': phone,
           'email': email,
           'user_id': usercredential.user?.uid,
-          'imageUrl': 'lib/assets/avatar.png',
+          'imageUrl': image,
           'gender': gender,
           'bio': 'Empty Bio',
-          'latlong': LatLng(0.0, 0.0),
+          'latlong': GeoPoint(0.0, 0.0)
         });
+        print('storing user phone');
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_phone', phone);
+        print('done with storing phone');
+
 
         Navigator.pushReplacement(
             context,
@@ -201,6 +209,7 @@ class _OtpFormState extends State<OtpForm> {
                 builder: (context) => const ProfilePage()));
       }
       else{
+        print('document exists and going to home');
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_phone', phone);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Home()));
@@ -211,7 +220,7 @@ class _OtpFormState extends State<OtpForm> {
         isLoading = false;
       });
       reusableSnackBar(context, "Invalid OTP");
-      print("wrong otp");
+      print("wrong otp $e");
     }
   }
 }

@@ -1,13 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/providers/future_provider/history_provider.dart';
-import 'package:myapp/providers/future_provider/quantity_fetcher_provider.dart';
-import 'package:myapp/views/reusable_widgets/reusableSnackBar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../providers/future_provider/cart_provider.dart';
 import '../../../shimmer_effect/services_card_skeleton.dart';
 
 class HistoryScreen extends ConsumerStatefulWidget {
