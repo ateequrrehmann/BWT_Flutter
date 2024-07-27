@@ -203,8 +203,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     leading: const Icon(Icons.logout),
                     onTap: () async {
                       SharedPreferences prefs=await SharedPreferences.getInstance();
-                      prefs.setString('verification_id', 'null');
-                      prefs.setString('user_phone', 'null');
+                      prefs.setString('verification_id', '');
+                      prefs.setString('user_phone', '');
                       FirebaseAuth.instance.signOut();
                       setState(()  {
                         Navigator.pushReplacement(

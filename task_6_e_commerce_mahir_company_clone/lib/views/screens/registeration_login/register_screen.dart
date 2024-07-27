@@ -107,8 +107,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       .get();
                               print(documentSnapshot.exists);
                               DocumentSnapshot adminDocumentSnapshot=await FirebaseFirestore.instance.collection('admin').doc(completePhoneNumber).get();
-
-                              if (documentSnapshot.exists==true && adminDocumentSnapshot.exists==false&& completePhoneNumber!='+923099286884') {
+print(adminDocumentSnapshot.exists);
+                              if (documentSnapshot.exists==true && completePhoneNumber!='+923099286884') {
                                 print(1);
                                 setState(() {
                                   isLoading = true;
@@ -127,6 +127,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           int? resendToken) async {
                                         SharedPreferences prefs=await SharedPreferences.getInstance();
                                         prefs.setString('verification_id', verificationId);
+                                        prefs.setString('admin_phone', '');
+
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
@@ -137,6 +139,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           (String verificationId) {
                                         // _dismissLoadingDialog(context);
                                       });
+                                  // SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  // prefs.setString('admin_phone', '');
+                                  // Navigator.pushReplacement(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             OtpForm()));
                                 } catch (e) {
                                   setState(() {
                                     isLoading = false;
@@ -144,36 +153,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
                                 print('hi  from  collections users');
                               }
-                              else if(adminDocumentSnapshot.exists==true && documentSnapshot.exists==false && completePhoneNumber=='+923099286884'){
+                              else if(adminDocumentSnapshot.exists==true && completePhoneNumber=='+923099286884'){
                                 print(2);
                                 setState(() {
                                   isLoading = true;
                                 });
                                 try {
-                                  // await FirebaseAuth.instance.verifyPhoneNumber(
-                                  //     phoneNumber: completePhoneNumber,
-                                  //     verificationCompleted:
-                                  //         (PhoneAuthCredential credential) {},
-                                  //     verificationFailed:
-                                  //         (FirebaseAuthException e) {
-                                  //       reusableSnackBar(context,
-                                  //           '${e.message!} Verification failed');
-                                  //     },
-                                  //     codeSent: (String verificationId,
-                                  //         int? resendToken) async {
-                                  //       SharedPreferences prefs=await SharedPreferences.getInstance();
-                                  //       prefs.setString('verification_id', verificationId);
-                                  //       prefs.setString('admin_phone', completePhoneNumber);
-                                  //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OtpForm()));
-                                  //     },
-                                  //     codeAutoRetrievalTimeout:
-                                  //         (String verificationId) {
-                                  //       // _dismissLoadingDialog(context);
-                                  //     });
-
+                                  await FirebaseAuth.instance.verifyPhoneNumber(
+                                      phoneNumber: completePhoneNumber,
+                                      verificationCompleted:
+                                          (PhoneAuthCredential credential) {},
+                                      verificationFailed:
+                                          (FirebaseAuthException e) {
+                                        reusableSnackBar(context,
+                                            '${e.message!} Verification failed');
+                                      },
+                                      codeSent: (String verificationId,
+                                          int? resendToken) async {
                                         SharedPreferences prefs=await SharedPreferences.getInstance();
+                                        prefs.setString('verification_id', verificationId);
                                         prefs.setString('admin_phone', completePhoneNumber);
                                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OtpForm()));
+                                      },
+                                      codeAutoRetrievalTimeout:
+                                          (String verificationId) {
+                                        // _dismissLoadingDialog(context);
+                                      });
+                                  // SharedPreferences prefs=await SharedPreferences.getInstance();
+                                  //       // prefs.setString('verification_id', verificationId);
+                                  //       prefs.setString('admin_phone', completePhoneNumber);
+                                  //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OtpForm()));
                                 } catch (e) {
                                   setState(() {
                                     isLoading = false;
@@ -181,11 +190,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
 
                               }
-                              else if(documentSnapshot.exists==true && adminDocumentSnapshot.exists==false&& completePhoneNumber!='+923099286884') {
+                              else if(documentSnapshot.exists==false && completePhoneNumber!='+923099286884') {
                                 print(3);
                                 setState(() {
                                   isLoading = true;
                                 });
+                                SharedPreferences prefs=await SharedPreferences.getInstance();
+                                prefs.setString('admin_phone', '');
+
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

@@ -27,11 +27,20 @@ class _HomeState extends State<Home> {
   String selectedTile = 'HOME';
   var adminPhone;
 
-  void fetchPhone() async{
-    SharedPreferences prefs =
-    await SharedPreferences
-        .getInstance();
-    adminPhone=prefs.getString('admin_phone');
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchPhone();
+    print('my admin page $adminPhone');
+  }
+
+  Future<void> fetchPhone() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      adminPhone = prefs.getString('admin_phone');
+    });
+    print('my admin page $adminPhone');
   }
 
   @override
@@ -45,8 +54,19 @@ class _HomeState extends State<Home> {
             fontSize: 20.sp,
           ),
         ),
+        actions: [
+          adminPhone!=''?
+              IconButton(onPressed: () async{
+                print(adminPhone);
+                SharedPreferences prefs=await SharedPreferences.getInstance();
+                prefs.setString('verification_id', '');
+                prefs.setString('adminPhone', '');
+                FirebaseAuth.instance.signOut();
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
+              }, icon: Icon(Icons.logout)):Container(),
+        ]
       ),
-      drawer: adminPhone!=''
+      drawer: adminPhone==''
       ?Consumer(builder: (context, ref, child){
         final data = ref.watch(userFirebaseProvider);
         print(data);
@@ -208,15 +228,13 @@ class _HomeState extends State<Home> {
                         leading: const Icon(Icons.logout),
                         onTap: () async {
                           SharedPreferences prefs=await SharedPreferences.getInstance();
-                          prefs.setString('verification_id', 'null');
-                          prefs.setString('user_phone', 'null');
+                          prefs.setString('verification_id', '');
+                          prefs.setString('user_phone', '');
                           FirebaseAuth.instance.signOut();
-                          setState(()  {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const RegisterScreen()));
-                          });
                         },
                       ),
                     ),
@@ -547,6 +565,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      print(adminPhone);
                       adminPhone=='' ? Navigator.push(context, MaterialPageRoute(builder: (context)=>const CleaningServicesBottomNavBar())):Navigator.push(context, MaterialPageRoute(builder: (context)=>CleaningService()));
                     },
                     child: Card(

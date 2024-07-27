@@ -165,61 +165,24 @@ class _OtpFormState extends State<OtpForm> {
     print('otp screen verification id $verification_id');
     print('User Gender is $gender');
     String? adminPhone=prefs.getString('admin_phone');
+    print(adminPhone);
     setState(() {
       isLoading = true;
     });
     try {
       print('in try block');
-      // PhoneAuthCredential credential = PhoneAuthProvider.credential(
-      //     verificationId: verification_id!, smsCode: code);
-      // print('just pass the and get user PhoneAuth');
-      // UserCredential usercredential=await auth.signInWithCredential(credential);
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: verification_id!, smsCode: code);
+      print('just pass the and get user PhoneAuth');
+      UserCredential usercredential=await auth.signInWithCredential(credential);
       print('getting user credentials');
       // Save user details to Firestore ---> additionally I have to add latlong when the user creates the account
-      DocumentSnapshot documentSnapshot =
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(phone)
-          .get();
-      DocumentSnapshot? adminDocumentSnapshot;
-      if(adminPhone!=null){
+
+
+      if(adminPhone!=''){
         print('admin name $adminPhone');
-        adminDocumentSnapshot=await FirebaseFirestore.instance.collection('admin').doc(adminPhone).get();
+        DocumentSnapshot adminDocumentSnapshot=await FirebaseFirestore.instance.collection('admin').doc(adminPhone).get();
         print(adminDocumentSnapshot.exists);
-      }
-
-      print('fetching document snapshot');
-      print(code);
-      print(phone);
-      print(adminDocumentSnapshot!.exists);
-      if(documentSnapshot.exists==false && adminDocumentSnapshot.exists==false){
-        adminPhone=='';
-        print('document doesn\'t exists');
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(phone)
-            .set({
-          'userName': name,
-          'phone': phone,
-          'email': email,
-          // 'user_id': usercredential.user?.uid,
-          'imageUrl': image,
-          'gender': gender,
-          'bio': 'Empty Bio',
-          'latlong': GeoPoint(0.0, 0.0)
-        });
-        print('storing user phone');
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('user_phone', phone);
-        print('done with storing phone');
-
-
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const ProfilePage()));
-      }
-      else if(adminDocumentSnapshot.exists==true && code=='123456'){
         print('admin');
         print(adminDocumentSnapshot.exists);
         print('in admin page');
@@ -230,19 +193,62 @@ class _OtpFormState extends State<OtpForm> {
           'userName': 'Ateeq',
           'phone': adminPhone,
           'email': 'rehmanateequr501@gmail.com',
-          'user_id': '',
+          'user_id': usercredential.user?.uid,
           'imageUrl': image,
           'gender': 'Male',
         });
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));
       }
-      else if (documentSnapshot.exists){
-        adminPhone=='';
-        print('document exists and going to home');
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('user_phone', phone);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Home()));
+      else{
+        print(phone);
+        DocumentSnapshot documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(phone)
+            .get();
+        print('fetching document snapshot');
+        print(code);
+        print(phone);
+        print(documentSnapshot.exists);
+        print(adminPhone);
+        if(documentSnapshot.exists==false){
+          print('document doesn\'t exists');
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(phone)
+              .set({
+            'userName': name,
+            'phone': phone,
+            'email': email,
+            'user_id': usercredential.user?.uid,
+            'imageUrl': image,
+            'gender': gender,
+            'bio': 'Empty Bio',
+            'latlong': GeoPoint(0.0, 0.0)
+          });
+          print('storing user phone');
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('user_phone', phone);
+          print('done with storing phone');
+
+
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ProfilePage()));
+        }
+        else if (documentSnapshot.exists){
+          adminPhone=='';
+          print('document exists and going to home');
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('user_phone', phone);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Home()));
+        }
+
       }
+
+
+
 
     } catch (e) {
       setState(() {
