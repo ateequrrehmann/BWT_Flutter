@@ -52,6 +52,7 @@ class _ACServicesState extends ConsumerState<ACServices> {
                   //   ref.invalidate(quantityFetcher(data.serviceName));
                   // }
                   // previousQuantity=quantityValue;
+
                   return reusableCardForServices(
                     context,
                     data.serviceName,
@@ -60,7 +61,7 @@ class _ACServicesState extends ConsumerState<ACServices> {
                     data.rating,
                     data.imageUrl,
                     data.available,
-                    'ac_services',
+                    'ac_services','HomeServices',
                     quantityValue,
                   );
                 },

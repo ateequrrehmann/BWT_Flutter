@@ -42,7 +42,7 @@ class _ACServicesState extends ConsumerState<HomeAppliancesServices> {
                       data.imageUrl,
                       // 'https://firebasestorage.googleapis.com/v0/b/mahircompanyclone.appspot.com/o/default_image%2Favatar.png?alt=media&token=1c65efe5-cb3c-4a6e-9fff-3e0ed9e5b661',
                       data.available,
-                      'home_appliances',quantityValue);
+                      'home_appliances','HomeServices',quantityValue);
                 });
           }, error: (error, track) {
             return Center(child: Text('checking+$error'));

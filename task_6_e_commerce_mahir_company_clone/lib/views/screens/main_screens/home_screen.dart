@@ -25,6 +25,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int myIndex = 0;
   String selectedTile = 'HOME';
+  var adminPhone;
+
+  void fetchPhone() async{
+    SharedPreferences prefs =
+    await SharedPreferences
+        .getInstance();
+    adminPhone=prefs.getString('admin_phone');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +46,8 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      drawer: Consumer(builder: (context, ref, child){
+      drawer: adminPhone!=''
+      ?Consumer(builder: (context, ref, child){
         final data = ref.watch(userFirebaseProvider);
         print(data);
         return data.when(
@@ -230,7 +239,7 @@ class _HomeState extends State<Home> {
               );
             },
         );
-      },),
+      },):Container(),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -258,7 +267,7 @@ class _HomeState extends State<Home> {
                   ),
                   Consumer(builder: (context, ref, child){
                     final data=ref.watch(userFirebaseProvider);
-                    return data.when(data: (user){
+                    return adminPhone==''? data.when(data: (user){
                       return Row(
                         children: [
                           SizedBox(
@@ -286,7 +295,7 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                           ),
                         );
-                      },);
+                      },):Container();
                   }),
 
                 ],
@@ -365,7 +374,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomeServicesBottomNavBar()));
+                      adminPhone==''? Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomeServicesBottomNavBar())):Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeService()));
                     },
                     child: Card(
                       color: Colors.white70,
@@ -538,7 +547,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const CleaningServicesBottomNavBar()));
+                      adminPhone=='' ? Navigator.push(context, MaterialPageRoute(builder: (context)=>const CleaningServicesBottomNavBar())):Navigator.push(context, MaterialPageRoute(builder: (context)=>CleaningService()));
                     },
                     child: Card(
                       color: Colors.white70,
@@ -763,4 +772,5 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
 }

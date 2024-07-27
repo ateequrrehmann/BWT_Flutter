@@ -35,16 +35,19 @@ class _ACServicesState extends ConsumerState<CarpetCleaningServices> {
                     data: (quantity) => quantity,
                     orElse: () => 0, // default value or placeholder
                   );
-                  return reusableCardForServices(
-                      context,
-                      data.serviceName,
-                      data.per,
-                      data.price,
-                      data.rating,
-                      data.imageUrl,
-                      // 'https://firebasestorage.googleapis.com/v0/b/mahircompanyclone.appspot.com/o/default_image%2Favatar.png?alt=media&token=1c65efe5-cb3c-4a6e-9fff-3e0ed9e5b661',
-                      data.available,'carpet',
-                      quantityValue);
+                  if(data.available==true){
+                    return reusableCardForServices(
+                        context,
+                        data.serviceName,
+                        data.per,
+                        data.price,
+                        data.rating,
+                        data.imageUrl,
+                        // 'https://firebasestorage.googleapis.com/v0/b/mahircompanyclone.appspot.com/o/default_image%2Favatar.png?alt=media&token=1c65efe5-cb3c-4a6e-9fff-3e0ed9e5b661',
+                        data.available,'carpet','cleaning_services',
+                        quantityValue);
+                  }
+
                 });
           }, error: (error, track) {
             return Center(child: Text('checking+$error'));

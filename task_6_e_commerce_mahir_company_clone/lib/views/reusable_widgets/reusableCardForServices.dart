@@ -1,9 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myapp/admin_panel/AdminServiceEdit.dart';
+import 'package:myapp/models/services_model.dart';
 import 'package:myapp/providers/future_provider/quantity_fetcher_provider.dart';
 import 'package:myapp/views/reusable_widgets/reusableSnackBar.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+var adminPhone;
 
 Widget reusableCardForServices(
     BuildContext context,
@@ -14,10 +19,15 @@ Widget reusableCardForServices(
     String imageUrl,
     bool available,
     String baseDocument,
+    String collectionName,
     int quantity) {
   double totalPrice = 0;
   int quantityCount = quantity;
-  return StatefulBuilder(
+  fetchPhone();
+  ServicesModel servicesModel=ServicesModel(serviceName: serviceName, per: per, price: price, imageUrl: imageUrl, rating: rating, available: available);
+  print('here is the service model $servicesModel');
+  return available==true || adminPhone!=''
+    ?StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
       return Card(
         color: Colors.white70,
@@ -69,10 +79,10 @@ Widget reusableCardForServices(
                                                 double.parse(price);
                                           }
                                           SharedPreferences prefs =
-                                              await SharedPreferences
-                                                  .getInstance();
+                                          await SharedPreferences
+                                              .getInstance();
                                           final phone =
-                                              prefs.getString('user_phone');
+                                          prefs.getString('user_phone');
                                           Map<String, dynamic> serviceData = {
                                             'serviceName': serviceName,
                                             'available': true,
@@ -134,37 +144,56 @@ Widget reusableCardForServices(
                               backgroundColor: Colors.grey,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                if (quantityCount > 0) {
-                                  quantityCount--;
-                                }
-                              });
-                              print(quantityCount);
-                            },
-                            child: Container(decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                                child: Icon(Icons.remove, color: Colors.white,)),
-                          ),
-                          quantityCount > 0
-                              ? Text(quantityCount.toString())
-                              : Text('add'),
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                quantityCount++;
-                              });
-                              print(quantityCount);
-                            },
-                            child: Container(decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                                child: Icon(Icons.add, color: Colors.white,)),
-                          ),
+                          adminPhone==''?
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        if (quantityCount > 0) {
+                                          quantityCount--;
+                                        }
+                                      });
+                                      print(quantityCount);
+                                    },
+                                    child: Container(decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                        child: Icon(Icons.remove, color: Colors.white,)),
+                                  ),
+                                  quantityCount > 0
+                                      ? Text(quantityCount.toString())
+                                      : Text('add'),
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        quantityCount++;
+                                      });
+                                      print(quantityCount);
+                                    },
+                                    child: Container(decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                        child: Icon(Icons.add, color: Colors.white,)),
+                                  ),
+                                ],
+                              ):Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>AdminServiceEdit(model: servicesModel, baseDoc: baseDocument, collectionName: collectionName)));
+                              }, icon: Icon(Icons.edit)),
+                              IconButton(onPressed: ()async{
+                                FirebaseFirestore.instance.collection(collectionName).doc(baseDocument).update({
+                                  serviceName: FieldValue.delete(),
+                                });
+                              }, icon: Icon(Icons.delete)),
+                            ],
+                          )
+
                         ],
                       )
                     ],
@@ -176,5 +205,15 @@ Widget reusableCardForServices(
         ),
       );
     },
-  );
+  ):StatefulBuilder(builder: (BuildContext context, StateSetter setState){
+    return Container();
+  });
+}
+
+
+void fetchPhone() async{
+  SharedPreferences prefs =
+  await SharedPreferences
+      .getInstance();
+  adminPhone=prefs.getString('admin_phone');
 }
