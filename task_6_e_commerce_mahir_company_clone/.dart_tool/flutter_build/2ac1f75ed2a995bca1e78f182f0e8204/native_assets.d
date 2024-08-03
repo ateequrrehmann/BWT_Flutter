@@ -1,0 +1,1 @@
+ D:\\BWT_Flutter\\task_6_e_commerce_mahir_company_clone\\.dart_tool\\flutter_build\\2ac1f75ed2a995bca1e78f182f0e8204\\native_assets.yaml: 

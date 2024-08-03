@@ -1,0 +1,4 @@
+#Sat Jul 27 20:19:59 PKT 2024
+base.0=D\:\\BWT_Flutter\\task_6_e_commerce_mahir_company_clone\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

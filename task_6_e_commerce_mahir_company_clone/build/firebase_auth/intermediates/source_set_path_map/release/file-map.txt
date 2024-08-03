@@ -1,0 +1,20 @@
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-play-services-base-18.0.1-0 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\0cba8ea576cbc4efa51598568bc39539\transformed\jetified-play-services-base-18.0.1\res
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-window-java-1.0.0-beta04-1 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\216e7357b9dd6b165fc370976a50e574\transformed\jetified-window-java-1.0.0-beta04\res
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-annotation-experimental-1.1.0-2 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\64c9553ef352f089ae2ed60ec0da03e7\transformed\jetified-annotation-experimental-1.1.0\res
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-credentials-play-services-auth-1.2.0-rc01-3 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\692884fbc4765c939dbfdfaeb94e5b44\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\res
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-credentials-1.2.0-rc01-4 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\7247bbf6740bd53918c32cc95b140554\transformed\jetified-credentials-1.2.0-rc01\res
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-firebase-common-21.0.0-5 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\800a0b6f7ffcdc4102640f4ae774b14a\transformed\jetified-firebase-common-21.0.0\res
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-window-1.0.0-beta04-6 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\9c0dd0874026b56b5e9ebca4a7841d83\transformed\jetified-window-1.0.0-beta04\res
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-play-services-basement-18.3.0-7 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\cdc9d86a9a709ee3c3f13d2125f8cd0c\transformed\jetified-play-services-basement-18.3.0\res
+io.flutter.plugins.firebase.auth.firebase_auth-jetified-play-services-auth-20.7.0-8 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\d187605a3f2d5c278320e1a28dd73cc3\transformed\jetified-play-services-auth-20.7.0\res
+io.flutter.plugins.firebase.auth.firebase_auth-browser-1.4.0-9 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\d81271b0654913f6b5392d7a5bccff74\transformed\browser-1.4.0\res
+io.flutter.plugins.firebase.auth.firebase_auth-core-1.6.0-10 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\f954fa6fba97aba93c7ddde7be91f586\transformed\core-1.6.0\res
+io.flutter.plugins.firebase.auth.firebase_auth-main-11 C:\Users\Ateeq Ur Rehman\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.1.2\android\src\main\res
+io.flutter.plugins.firebase.auth.firebase_auth-release-12 C:\Users\Ateeq Ur Rehman\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.1.2\android\src\release\res
+io.flutter.plugins.firebase.auth.firebase_auth-pngs-13 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_auth\generated\res\pngs\release
+io.flutter.plugins.firebase.auth.firebase_auth-resValues-14 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_auth\generated\res\resValues\release
+io.flutter.plugins.firebase.auth.firebase_auth-rs-15 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_auth\generated\res\rs\release
+io.flutter.plugins.firebase.auth.firebase_auth-mergeReleaseResources-16 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_auth\intermediates\incremental\release\mergeReleaseResources\merged.dir
+io.flutter.plugins.firebase.auth.firebase_auth-mergeReleaseResources-17 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_auth\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+io.flutter.plugins.firebase.auth.firebase_auth-merged_res-18 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_auth\intermediates\merged_res\release
+io.flutter.plugins.firebase.auth.firebase_auth-packaged_res-19 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_core\intermediates\packaged_res\release

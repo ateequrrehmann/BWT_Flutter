@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
     role=userData['role'];
     name=userData['username'];
     print(role);
+    print(name[0]);
   }
 
   Future<void> fetchClasses(String userId) async {
@@ -86,7 +87,7 @@ class _HomeState extends State<Home> {
             child: CircleAvatar(
                 backgroundColor: Colors.orange,
                 child: Text(
-                  "A",
+                  "${name[0]}",
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,

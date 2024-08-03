@@ -1,0 +1,12 @@
+com.baseflow.geocoding.geocoding_android-jetified-window-java-1.0.0-beta04-0 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\216e7357b9dd6b165fc370976a50e574\transformed\jetified-window-java-1.0.0-beta04\res
+com.baseflow.geocoding.geocoding_android-jetified-annotation-experimental-1.1.0-1 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\64c9553ef352f089ae2ed60ec0da03e7\transformed\jetified-annotation-experimental-1.1.0\res
+com.baseflow.geocoding.geocoding_android-jetified-window-1.0.0-beta04-2 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\9c0dd0874026b56b5e9ebca4a7841d83\transformed\jetified-window-1.0.0-beta04\res
+com.baseflow.geocoding.geocoding_android-core-1.6.0-3 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\f954fa6fba97aba93c7ddde7be91f586\transformed\core-1.6.0\res
+com.baseflow.geocoding.geocoding_android-main-4 C:\Users\Ateeq Ur Rehman\AppData\Local\Pub\Cache\hosted\pub.dev\geocoding_android-3.3.1\android\src\main\res
+com.baseflow.geocoding.geocoding_android-release-5 C:\Users\Ateeq Ur Rehman\AppData\Local\Pub\Cache\hosted\pub.dev\geocoding_android-3.3.1\android\src\release\res
+com.baseflow.geocoding.geocoding_android-pngs-6 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\geocoding_android\generated\res\pngs\release
+com.baseflow.geocoding.geocoding_android-resValues-7 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\geocoding_android\generated\res\resValues\release
+com.baseflow.geocoding.geocoding_android-rs-8 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\geocoding_android\generated\res\rs\release
+com.baseflow.geocoding.geocoding_android-mergeReleaseResources-9 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\geocoding_android\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.baseflow.geocoding.geocoding_android-mergeReleaseResources-10 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\geocoding_android\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.baseflow.geocoding.geocoding_android-merged_res-11 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\geocoding_android\intermediates\merged_res\release

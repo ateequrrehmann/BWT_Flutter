@@ -1,0 +1,14 @@
+io.flutter.plugins.firebase.core.firebase_core-jetified-window-java-1.0.0-beta04-0 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\216e7357b9dd6b165fc370976a50e574\transformed\jetified-window-java-1.0.0-beta04\res
+io.flutter.plugins.firebase.core.firebase_core-jetified-annotation-experimental-1.1.0-1 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\64c9553ef352f089ae2ed60ec0da03e7\transformed\jetified-annotation-experimental-1.1.0\res
+io.flutter.plugins.firebase.core.firebase_core-jetified-firebase-common-21.0.0-2 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\800a0b6f7ffcdc4102640f4ae774b14a\transformed\jetified-firebase-common-21.0.0\res
+io.flutter.plugins.firebase.core.firebase_core-jetified-window-1.0.0-beta04-3 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\9c0dd0874026b56b5e9ebca4a7841d83\transformed\jetified-window-1.0.0-beta04\res
+io.flutter.plugins.firebase.core.firebase_core-jetified-play-services-basement-18.3.0-4 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\cdc9d86a9a709ee3c3f13d2125f8cd0c\transformed\jetified-play-services-basement-18.3.0\res
+io.flutter.plugins.firebase.core.firebase_core-core-1.6.0-5 C:\Users\Ateeq Ur Rehman\.gradle\caches\transforms-3\f954fa6fba97aba93c7ddde7be91f586\transformed\core-1.6.0\res
+io.flutter.plugins.firebase.core.firebase_core-main-6 C:\Users\Ateeq Ur Rehman\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.2.0\android\src\main\res
+io.flutter.plugins.firebase.core.firebase_core-release-7 C:\Users\Ateeq Ur Rehman\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.2.0\android\src\release\res
+io.flutter.plugins.firebase.core.firebase_core-pngs-8 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_core\generated\res\pngs\release
+io.flutter.plugins.firebase.core.firebase_core-resValues-9 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_core\generated\res\resValues\release
+io.flutter.plugins.firebase.core.firebase_core-rs-10 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_core\generated\res\rs\release
+io.flutter.plugins.firebase.core.firebase_core-mergeReleaseResources-11 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_core\intermediates\incremental\release\mergeReleaseResources\merged.dir
+io.flutter.plugins.firebase.core.firebase_core-mergeReleaseResources-12 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_core\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+io.flutter.plugins.firebase.core.firebase_core-merged_res-13 D:\BWT_Flutter\task_6_e_commerce_mahir_company_clone\build\firebase_core\intermediates\merged_res\release
